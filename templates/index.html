@@ -4,7 +4,7 @@
 
 
 {% block title %}
-    DegiNNex
+    DigiLapp
 {% endblock %}
 
 <!-- El bloque link envia stylesheet por separado para evitar conflictos con otros archivos -->
@@ -15,6 +15,14 @@
 
 {% block content %}
     <div class="main">
+        <section class="nosotros" >
+            <p>
+                nosotros
+            </p>
+        </section>
+
+
+
         <!-- Servicios -->
         <section class="main-section" id="services">
             <h2>Categorias</h2>
@@ -41,7 +49,7 @@
                         <h3>Diseño Gráfico</h3>
                     </div>
                     <div class="service-img">
-                        <img src="{{url_for('static', filename='img/fotografo.png')}}" alt="fotografiando novios">
+                        <img src="{{url_for('static', filename='img/diseño-grafico.jpg')}}" alt="fotografiando novios">
                     </div>
                     <div class="overlay">
                         <h4>Deja que un profesional se encargue de esa imagen que tienes pensado como logo de tu empresa.</h4>
@@ -68,7 +76,7 @@
                 <!-- categoria sitios webs -->
                 <div class="service">
                     <div class="service-item">
-                        <h3>Sitios Web</h3>
+                        <h3>Programación</h3>
                     </div>
                     <div class="service-img">
                         <img src="{{url_for('static', filename='img/programando-pagina-web.jpg')}}" alt="codeando web">

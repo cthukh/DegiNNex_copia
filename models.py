@@ -35,3 +35,7 @@ class Usuario(db.Model, UserMixin):
     def obtener_por_id(id):
         print(f"Consultando por el usuario con id {id} en db")
         return Usuario.query.get(id)
+    
+
+# class Proveedores(db.Model):
+#     __tablename__   = " "
