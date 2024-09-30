@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect
+from flask import Flask, render_template, flash, redirect, request
 from sqlalchemy import select
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate

@@ -1,9 +1,5 @@
 footer {
-    background: #333;
-    color: white;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
+    margin-top: 50px; /* Aumenta el espacio entre el contenido y el footer */
+    padding: 20px; /* Añade un padding interno si es necesario */
+    background-color: #f8f9fa; /* Cambia el color de fondo si deseas */
 }
