@@ -25,3 +25,9 @@ static/assets/
 migrations/
 
 config.py
+
+2-yo/
+aaaa/
+archivos_prueba/
+media/
+errors.py
