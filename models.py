@@ -7,7 +7,8 @@ class Usuario(db.Model, UserMixin):
     id             = db.Column(db.Integer, primary_key = True)
     nombre         = db.Column(db.String(45),nullable=False)
     correo         = db.Column(db.String(45),nullable=False,unique=True)
-    clave          = db.Column(db.String(255),nullable=False) 
+    clave          = db.Column(db.String(255),nullable=False)
+    # img_perfil     = db.Column(db.String(45),nullable=True)
 
     def establecer_clave(self, clave):
         self.clave = generate_password_hash(clave)

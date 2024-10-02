@@ -4,7 +4,7 @@
 
 
 {% block title %}
-    DegiNNex
+    DegiLapp
 {% endblock %}
 
 <!-- El bloque link envia stylesheet por separado para evitar conflictos con otros archivos -->
@@ -14,18 +14,6 @@
 {% endblock %}
 
 {% block content %}
-    <header>
-        <a href="/inicio"><h1 class="title">DegiNNex</h1></a>
-        <nav id="navbar">
-            <ul>
-                <li><a href="#servicios" >Servicios</a></li>
-                <li><a href="/perfil">Perfil</a></li>
-                <li><a href="#about">Acerca de</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-
     <div class="main">
         <!-- Servicios -->
         <section class="main-section" id="services">
@@ -46,14 +34,14 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('selecionar_categorias', categoria='imagenes') }}">
+            <a href="{{ url_for('selecionar_categorias', categoria='diseño-grafico') }}">
                 <!-- categoria imagenes -->
                 <div class="service">
                     <div class="service-item">
-                        <h3>Imagenes</h3>
+                        <h3>Diseño Gráfico</h3>
                     </div>
                     <div class="service-img">
-                        <img src="{{url_for('static', filename='img/fotografo.png')}}" alt="fotografiando novios">
+                        <img src="{{url_for('static', filename='img/disenografico.jpg')}}" alt="diseño-grafico-img">
                     </div>
                     <div class="overlay">
                         <h4>Deja que un profesional se encargue de esa imagen que tienes pensado como logo de tu empresa.</h4>
@@ -76,7 +64,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('selecionar_categorias', categoria='sitios_web') }}">
+            <a href="{{ url_for('selecionar_categorias', categoria='sitios-web') }}">
                 <!-- categoria sitios webs -->
                 <div class="service">
                     <div class="service-item">
@@ -93,7 +81,7 @@
         </section>
 
         <!-- contactos -->
-        <section class="main-section" id="contact">
+        <!-- <section class="main-section" id="contact">
             <h2>Contacto</h2>
             <form id="contact-form">
                 <label for="name">Nombre:</label>
@@ -104,20 +92,9 @@
                 <textarea id="message" required></textarea>
                 <button class="btn" type="submit">Enviar</button>
             </form>
-        </section>
+        </section> -->
 
     </div>
-
-    <footer>
-        <!-- Sobre nosotros -->
-        <section id="about">
-            <h2>Acerca de Nosotros</h2>
-            <p>Somos una plataforma dedicada a conectar profesionales creativos con clientes.</p>
-        </section>
-
-        <p><strong>&copy; 2024 DegiNNex, Warens inc. </strong></p>
-    </footer>
-
 {% endblock %}
 
 {% block script %}
