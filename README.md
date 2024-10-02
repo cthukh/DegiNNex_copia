@@ -1,11 +1,12 @@
-- Crear conexion entre base de datos para almacenar usuarios y proveedores. 
+# DegiNNex
 
-- Cambiar barra de navegación. (a medias)
 
-- Crear plantilla para poder editar usuarios (hecho)
+### Esta pagina web esta pensada para que personas con el conocimiento en áreas de:
 
-- Mostrar todos los usuarios (hecho: /all_users)
-
-- Eliminar usuario de la base de datos (hecho)
-
-- Crear nuevo index (no parece ser necesario)
+Creacion y edicion de:
+- Videos
+- Audio
+- Diseño Grafico
+- Paginas web
+### Puedan ofrecer sus servicios y que el publico pueda contactar con ellos.
+### La tienda cuenta con dos lados, Cliente y Proveedor
