@@ -14,47 +14,13 @@ html, body {
 }
 
 .card {
-    width: 22rem; /* Ancho de la tarjeta */
-    height: auto; /* Altura automática para que se ajuste al contenido */
+    width: 20rem; 
+    height: 15rem;
     text-align: center;
+    align-self: center;
     padding: 20px;
     margin: 0 auto;
     margin-top: 6%;
-    border: 2px solid #007bff; /* Borde azul */
-    border-radius: 10px; /* Bordes redondeados */
-    background-color: white; /* Fondo blanco */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-    transition: transform 0.3s; /* Transición suave al hover */
-}
-
-.card:hover {
-    transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
-}
-
-.card-img-top {
-    border-radius: 50%; /* Hace la imagen redonda */
-    border: 3px solid #007bff; /* Borde azul alrededor de la imagen */
-}
-
-h5.card-title {
-    color: #007bff; /* Color azul para el nombre */
-}
-
-.btn {
-    width: 45%; /* Ancho de los botones */
-    margin: 5px; /* Espaciado entre botones */
-}
-
-footer {
-    background-color: #000000; /* Cambia el color de fondo si deseas */
-    padding: 8px;
-    color: white;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-footer h2 {
-    color: #007bff; /* Color azul para el encabezado del pie de página */
+    border: 2px solid;
+    border-color: black;
 }
