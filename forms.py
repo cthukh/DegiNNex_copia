@@ -16,10 +16,14 @@ class FormularioAcceso(FlaskForm):
     submit            = SubmitField('Acceder')
 
 class FormularioValidar(FlaskForm):
+    opciones = [
+        ('default','Sin área'),
+        ('Videos', 'Videos'),
+        ('Diseño gráfico', 'Diseño Gráfico'),
+        ('Audio', 'Audio'),
+        ('Sitios Web', 'Sitios Web')
+        ]
     edad              = IntegerField('Edad', validators=[DataRequired()])
     telefono          = StringField('Telefono (+56 9 12345678)', default='+56 9 ' , validators=[DataRequired()])
-    tipo              = SelectField('Selecciona un área',
-                                    choices=[
-                                        ('set','Sin área'),('op1', 'Videos'),('op2', 'Diseño gráfico'),('op3', 'Audio'),
-                                             ('op4', 'Sitios web')],default='set', validators=[DataRequired()]) #cambiar a area o campo
+    tipo              = SelectField('Selecciona un área',choices=opciones,default='default',validators=[DataRequired()]) #cambiar a area o campo
     submit            = SubmitField('Completar')

@@ -119,19 +119,23 @@ def index():
     return render_template('index.html')
 
 #################### Selección de categorias ####################
-@app.route('/section/<string:categoria>')
-def selecionar_categorias(categoria):
-    # Renderiza diferentes plantillas según la categoría
-    if   categoria == 'videos':                         # Categoría video.
-        return render_template ('cat_video.html')
-    elif categoria == 'diseño-grafico':                 # Categoría Diseño Grafico.
-        return render_template ('cat_imagenes.html')
-    elif categoria == 'audio':                          # Categoría audio.  #? Posible retiro.
-        return render_template ('cat_audio.html')
-    elif categoria == 'sitios-web':                     # Categoría sitios web.
-        return render_template ('cat_web.html')
-    else:
-        return render_template('404.html')
+
+@app.route('/section/video')
+def video():
+    
+    return render_template ('cat_video.html')
+
+@app.route('/section/audio')
+def audio():
+    return render_template ('cat_audio.html')
+
+@app.route('/section/diseño')
+def diseño():
+    return render_template ('cat_gradico.html')
+
+@app.route('/section/diseño')
+def web():
+    return render_template('cat_web.html')
 
 
 # perfi/view
@@ -223,7 +227,10 @@ def logout():
 @login_required
 def eliminar():
     user_id = current_user.id
+    ver     = current_user.miembro
     ControladorUsuarios.borrar_usuario(user_id)
+    # if ver == True:
+        
     flash ("usuario eliminado")
     return redirect('/')
 

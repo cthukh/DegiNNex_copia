@@ -15,17 +15,15 @@ class ControladorUsuarios:
         return usuario
     
     @staticmethod
-    def crear_miembro(id, nombre, apellido, edad, correo, telefono,tipo):
+    def crear_miembro(idu, nombre, apellido, edad, correo, telefono, tipo, ):
         proveedor = Proveedor()
-        usuario = Usuario.query.get(id)
-        proveedor.id_usuario = id
+        usuario = Usuario.query.get(idu)
         proveedor.nombre     = nombre
         proveedor.apellido   = apellido
         proveedor.edad       = edad
         proveedor.correo     = correo
         proveedor.telefono   = telefono
         proveedor.tipo       = tipo
-
         usuario.miembro      = True
 
         db.session.add(proveedor)
@@ -70,7 +68,7 @@ class ControladorUsuarios:
                 'mensaje' : f"El usuario {id} no existe en la db"
             }
             return resultado
-
+        print(usuario)
         if usuario:
             db.session.delete(usuario)
             db.session.commit()
