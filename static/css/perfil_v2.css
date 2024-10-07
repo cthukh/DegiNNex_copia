@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.alto_fondo {
+    height: 80vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+    border-radius: 8px;
+    overflow: hidden;
+    border: solid rgba(0, 0, 0, 0.479);
+}
+
+.profile-sidebar {
+    width: 300px; /* Ancho fijo */
+    min-width: 300px; /* Asegura que no sea más pequeño */
+    background-color: #ffffff;
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+    box-sizing: border-box; /* Asegura que padding no cambie el tamaño */
+}
+
+
+.profile-header {
+    text-align: center;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.opt_button {
+    display: flex;
+    align-items: center;
+    a {
+        margin-left: 1rem;
+    }
+}
+.about_ {
+    text-align: start;
+}
+
+/* nav a {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: auto;
+} */
+
+.user-details {
+    margin-top: 20px;
+}
+
+.user-details h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.age {
+    color: #4CAF50;
+}
+
+.profile-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-nav {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-item {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+}
+
+.nav-item.active {
+    border-bottom: 2px solid #2196F3;
+    color: #2196F3;
+}
+
+.profile-content {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+#profile h2{
+    color: #333;
+    margin-top: 20px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .profile-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+}

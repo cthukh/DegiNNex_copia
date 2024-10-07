@@ -1,22 +1,40 @@
-from models import Usuario, db
+from models import Usuario, db, Proveedor
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class ControladorUsuarios:
     @staticmethod
-    def crear_usuario(nombre,correo,clave):
-        usuario = Usuario()
-        usuario.nombre = nombre
-        usuario.correo = correo
+    def crear_usuario(nombre,apellido,correo,clave):
+        usuario          = Usuario()
+        usuario.nombre   = nombre
+        usuario.apellido = apellido
+        usuario.correo   = correo
         usuario.establecer_clave(clave)
 
         db.session.add(usuario)
         db.session.commit()
         return usuario
+    
+    @staticmethod
+    def crear_miembro(idu, nombre, apellido, edad, correo, telefono, tipo, ):
+        proveedor = Proveedor()
+        usuario = Usuario.query.get(idu)
+        proveedor.nombre     = nombre
+        proveedor.apellido   = apellido
+        proveedor.edad       = edad
+        proveedor.correo     = correo
+        proveedor.telefono   = telefono
+        proveedor.tipo       = tipo
+        usuario.miembro      = True
+
+        db.session.add(proveedor)
+        db.session.commit()
+        return proveedor
 
     @staticmethod
-    def editar_usuario(id, nombre, correo):
+    def editar_usuario(id,nombre,apellido,correo):
         # verifica el usuario por la id en db.
         usuario = Usuario.query.get(id)
+        
         if not usuario:
             resultado = {
                 'error' : True,
@@ -31,9 +49,13 @@ class ControladorUsuarios:
                 'mensaje' : f"El correo {correo} ya esta en uso"
             }
             return resultado
-
-        usuario.nombre = nombre
-        usuario.correo = correo
+        
+        # if usuario.miembro == True:
+            
+        
+        usuario.nombre   = nombre
+        usuario.apellido = apellido
+        usuario.correo   = correo
         db.session.commit()
         return {'usuario' : usuario}  # Retorna el usuario dentro de un diccionario
 
@@ -46,11 +68,8 @@ class ControladorUsuarios:
                 'mensaje' : f"El usuario {id} no existe en la db"
             }
             return resultado
-        
+        print(usuario)
         if usuario:
             db.session.delete(usuario)
             db.session.commit()
             return {'mensaje': "usuario eliminado"}
-    # #def obtener_usuarios()
-    # #def borrar_usuario()
-    

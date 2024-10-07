@@ -2,13 +2,11 @@
 
 {% extends "base_template.html" %}
 
-
 {% block title %}
     DegiLapp
 {% endblock %}
 
 <!-- El bloque link envia stylesheet por separado para evitar conflictos con otros archivos -->
-
 {% block link %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
@@ -19,7 +17,7 @@
         <section class="main-section" id="services">
             <h2>Categorias</h2>
 
-            <a href="{{ url_for('selecionar_categorias', categoria='videos') }}">
+            <a href="/section/video">
                 <!-- categoria videos -->
                 <div class="service" >
                     <div class="service-item">
@@ -34,7 +32,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('selecionar_categorias', categoria='diseño-grafico') }}">
+            <a href="/section/diseño">
                 <!-- categoria imagenes -->
                 <div class="service">
                     <div class="service-item">
@@ -49,7 +47,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('selecionar_categorias', categoria='audio') }}">
+            <a href="/section/audio">
                 <!-- categoria audio -->
                 <div class="service">
                     <div class="service-item">
@@ -64,7 +62,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('selecionar_categorias', categoria='sitios-web') }}">
+            <a href="/section/web">
                 <!-- categoria sitios webs -->
                 <div class="service">
                     <div class="service-item">
@@ -79,21 +77,6 @@
                 </div>
             </a>
         </section>
-
-        <!-- contactos -->
-        <!-- <section class="main-section" id="contact">
-            <h2>Contacto</h2>
-            <form id="contact-form">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" required>
-                <label for="message">Mensaje:</label>
-                <textarea id="message" required></textarea>
-                <button class="btn" type="submit">Enviar</button>
-            </form>
-        </section> -->
-
     </div>
 {% endblock %}
 
