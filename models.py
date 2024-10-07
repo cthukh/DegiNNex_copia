@@ -53,3 +53,8 @@ class Proveedor(db.Model):
 
     usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
     usuario        = db.relationship('Usuario', back_populates = 'proveedor')
+
+    # @staticmethod
+    # def obtener_categoria(tipo):
+    #     cat_items = db.session.execute(db.select(Proveedor)).scalars()
+    #     if 
