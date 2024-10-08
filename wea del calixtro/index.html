@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="product-page">
+        <div class="product-gallery">
+            <h1><a href="perfil.html">Michel muñoz</a></h1>
+            <img src="img/michel.png" alt="foto del Usuario" class="main-image">
+            <div class="thumbnail-gallery">
+                <img src="img/istockphoto-1357767557-612x612.webp" alt="Thumbnail 1" class="thumbnail">
+                <img src="img/istockphoto-1360521208-612x612.webp" alt="Thumbnail 2" class="thumbnail">
+                <img src="img/istockphoto-1488105061-612x612.webp" alt="Thumbnail 3" class="thumbnail">
+                <img src="img/istockphoto-2130663372-612x612.webp" alt="Thumbnail 4" class="thumbnail">
+            </div>
+        </div>
+        
+        <div class="product-details">
+            <!-- Cambiamos el título a un enlace de perfil -->
+            <h1><a>servicio que ofrece</a></h1>
+            <div class="rating">
+                <p>Calificación: </p>
+                <div id="stars" class="stars">
+                    <span class="star" data-value="1">⭐</span>
+                    <span class="star" data-value="2">⭐</span>
+                    <span class="star" data-value="3">⭐</span>
+                    <span class="star" data-value="4">⭐</span>
+                    <span class="star" data-value="5">⭐</span>
+                </div>
+                <p id="selected-rating">(Sin calificar)</p>
+            </div>
+            <!-- Eliminamos las secciones de precio y descuento -->
+            <div class="actions">
+                <button class="buy-now">conversar </button>
+                <button class="add-to-cart">guardar en favorito</button>
+            </div>
+            <div class="description">
+                <h3>Lo que tienes que saber de este servicio:</h3>
+                <ul>
+                    <li>servicio de buena calidad</li>
+                    <li>remoto</li>
+                    <li></li>
+                    <li>Cumple función destornillador</li>
+                    <li>Velocidad máxima de rotación: 2550rpm</li>
+                    <li>Con batería incluida</li>
+                    <li>Incluye: brocas</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+<div class="comment-section">
+    <h2>Comentarios</h2>
+    <form id="comment-form">
+        <!-- Campo para nombre o perfil -->
+        <input id="username" type="text" placeholder="Nombre de usuario" required>
+        <textarea id="comment" placeholder="Escribe tu comentario aquí" required></textarea>
+        <button type="submit">Enviar comentario</button>
+    </form>
+    <div id="comments-list"></div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
