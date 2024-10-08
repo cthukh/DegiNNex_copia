@@ -12,7 +12,7 @@ Editar Perfil
 <div class="main">
     <h2>Editar Usuario</h2>
 
-    <form action="/perfil/editar" class="form_edit" method="POST" >
+    <form action="/perfil/me/editar" class="form_edit" method="POST" >
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
 
@@ -22,10 +22,30 @@ Editar Perfil
         <label for="correo">Correo Electrónico:</label>
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
+        {% if usuario.miembro == True: %}
+            <label for="edad">Edad:</label>
+            <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}">
+
+            <label for="telefono">Telefono:</label>
+            <input type="text" class="nuevo" name="telefono" value="{{ proveedor.telefono }}">
+
+            <label for="categoria">Categoria: </label>
+            <select name="categoria" class="nuevo" id="categoria">
+                <option value="sin_area">{{ proveedor.categoria }}</option>
+                <option value="Video">Video</option>
+                <option value="diseño_grafico">Diseño Gráfico</option>
+                <option value="audio">Audio</option>
+                <option value="sitio_web">Sitios Web</option>
+            </select>
+        {% endif %}
+
         <button type="submit" id="subir" class="btn btn-primary">Guardar Cambios</button>
         <button type="cancel" id="cancel" class="btn btn-danger">Cancelar</button>
     </form>
 </div>
+
+
+
 {% endblock %}
 
 

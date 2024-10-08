@@ -133,7 +133,7 @@ def audio():
 def diseño():
     return render_template ('cat_gradico.html')
 
-@app.route('/section/diseño')
+@app.route('/section/web')
 def web():
     return render_template('cat_web.html')
 
@@ -153,21 +153,25 @@ def perfil():
 @login_required
 def editar_perfil():
     if request.method == 'GET':
-        return render_template('editar_usuario.html', usuario=current_user)
+        proveedor = current_user.proveedor
+        return render_template('editar_usuario.html', usuario=current_user, proveedor=proveedor)
 
     if request.method == 'POST':
         error = False
-        idq       = current_user.id
+        idq      = current_user.id
         nombre   = request.form.get('nombre')
         apellido = request.form.get('apellido')
         correo   = request.form.get('correo')
-        
-        # if current_user.miembro == True:
-        #     id_miembro = Proveedor.id
-        #     prover = Proveedor.obtener_miembro_por_id(id_miembro)
-        #     return prover
-
+        print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo)
+
+        if current_user.miembro == True:
+            edad        = request.form.get('edad')
+            telefono    = request.form.get('telefono')
+            categoria   = request.form.get('edad')
+            print("es miembro y esta editando")
+            resultadov2 = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
+
         if 'error' in resultado:
             # si hay error en resultado, devuelve un diccionario con el error.
             flash (resultado['mensaje'])
@@ -176,7 +180,7 @@ def editar_perfil():
             flash("Perfil actualizado con éxito")
             print("Perfil actualizado con éxito")
             
-        return redirect('/perfil')  # Redirige a la ruta de acción, si se usa POST
+        return redirect('/perfil/me')  # Redirige a la ruta de acción, si se usa POST
     
 
 #################### Convertirse en proveedor ####################
@@ -202,15 +206,12 @@ def crear_miembro():
 def validar_perfil():
     form_validar = FormularioValidar()
     id           = current_user.id
-    nombre       = current_user.nombre
-    apellido     = current_user.apellido
     edad         = request.form.get('edad')
-    correo       = current_user.correo
     telefono     = request.form.get('telefono')
     tipo         = request.form.get('tipo')
     
     if form_validar.validate_on_submit():
-        ControladorUsuarios.crear_miembro(id, nombre, apellido, edad, correo, telefono, tipo)
+        ControladorUsuarios.crear_miembro(id, edad, telefono, tipo)
         return redirect('/perfilv2')
 
 #################### Cierra la sesión del usuario actual. ####################
