@@ -10,49 +10,32 @@ Perfiles en sección video
 
 {% block content %}
     <div class="main">
+    {% for proveedor in proveedores %}
         <section id="perfiles">
-            <div class="profile" onclick="showProfile('perfil1')">
-                <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
-                <div class="summary">
-                    <h3>persona 1</h3>
-                    <p>Desarrollador Web</p>
+            <!-- enviar la id del proveedor de alguna forma  -->
+            <a href="/perfil/view/"> 
+                <div class="profile" onclick="showProfile('perfil1')">
+                    <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
+                    <div class="summary">
+                        <h3>{{ proveedor.usuario.nombre }} {{ proveedor.usuario.apellido }}</h3>
+                        <p>{{ proveedor.usuario.correo }}</p>
+                        <p>{{ proveedor.categoria }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="profile" onclick="showProfile('perfil2')">
-                <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
-                <div class="summary"> 
-                    <h3>persona 2</h3>
-                    <p>Diseñadora Gráfica</p>
-                </div>
-            </div>
-            <!-- Más perfiles aquí -->
-            <div class="profile" onclick="showProfile('perfil3')">
-                <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
-                <div class="summary"> 
-                    <h3>persona 3</h3>
-                    <p>Desarrollador Web</p>
-                </div>
-            </div>
-            
-            <div class="profile" onclick="showProfile('perfil4')">
-                <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
-                <div class="summary"> 
-                    <h3>persona 5</h3>
-                    <p>Desarrollador Web</p>
-                </div>
-            </div>
-
+            </a>
         </section>
+    {% endfor %}
+    </div>
 
-        <div id="fullProfile" class="modal">
+        <!-- <div id="fullProfile" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeProfile()">&times;</span>
                 <h2 id="fullName"></h2>
                 <p id="fullArea"></p>
                 <p id="fullDescription"></p>
             </div>
-        </div>
-    </div>
+            </div>
+        </div> -->
 
-    <script src="{{ url_for('static', filename='js/cat_video.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/cat_video.js') }}"></script> -->
 {% endblock %}

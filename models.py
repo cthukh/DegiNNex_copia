@@ -46,7 +46,16 @@ class Proveedor(db.Model):
     id             = db.Column(db.Integer,     primary_key=True)
     edad           = db.Column(db.Integer,     nullable=True)
     telefono       = db.Column(db.String(30),  nullable=False)
-    categotia      = db.Column(db.String(30),  nullable=False)
+    categoria      = db.Column(db.String(30),  nullable=False)
 
     usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
     usuario        = db.relationship('Usuario', back_populates = 'proveedor')
+
+    @staticmethod
+    def obtener_por_categoria(cat):
+        productos = Proveedor.query.filter_by(categoria=cat)
+        todos_los_productos = []
+        for producto in productos:
+            todos_los_productos.append(producto)
+        print("Items de consulta:",todos_los_productos)
+        return(todos_los_productos)
