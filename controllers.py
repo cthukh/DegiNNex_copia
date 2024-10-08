@@ -2,6 +2,8 @@ from models import Usuario, db, Proveedor
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class ControladorUsuarios:
+    
+########################################  CREAR  ########################################
     @staticmethod
     def crear_usuario(nombre,apellido,correo,clave):
         usuario          = Usuario()
@@ -15,18 +17,20 @@ class ControladorUsuarios:
         return usuario
     
     @staticmethod
-    def crear_miembro(idu, edad, telefono, tipo, ):
+    def crear_miembro(idu, edad, telefono, categoria, ):
         proveedor = Proveedor()
         usuario = Usuario.query.get(idu)
         proveedor.edad       = edad
         proveedor.telefono   = telefono
-        proveedor.tipo       = tipo
+        proveedor.categoria  = categoria
         usuario.miembro      = True
+        proveedor.usuario_id= idu
 
         db.session.add(proveedor)
         db.session.commit()
         return proveedor
 
+########################################  EDITAR  ########################################
     @staticmethod
     def editar_usuario(id,nombre,apellido,correo):
         # verifica el usuario por la id en db.
@@ -64,6 +68,7 @@ class ControladorUsuarios:
         db.session.commit()
         return {'usuario' : proveedor}
 
+######################################## BORRAR ########################################
     @staticmethod
     def borrar_usuario(id):
         usuario = Usuario.query.get(id)

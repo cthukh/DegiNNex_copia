@@ -119,26 +119,34 @@ def index():
     return render_template('index.html')
 
 #################### Selección de categorias ####################
-
 @app.route('/section/video')
 def video():
-    
-    return render_template ('cat_video.html')
+    categoria = "Videos"
+    proveedores = Proveedor.obtener_por_categoria(categoria)
+    print(proveedores)
+    return render_template ('cat_video.html', proveedores=proveedores)
 
 @app.route('/section/audio')
 def audio():
-    return render_template ('cat_audio.html')
+    categoria = "Audio"
+    proveedores = Proveedor.obtener_por_categoria(categoria)
+    return render_template ('cat_audio.html', proveedores=proveedores)
 
 @app.route('/section/diseño')
 def diseño():
-    return render_template ('cat_gradico.html')
+    categoria = "Diseño Gráfico"
+    proveedores = Proveedor.obtener_por_categoria(categoria)
+    return render_template ('cat_gradico.html', proveedores=proveedores)
 
 @app.route('/section/web')
 def web():
-    return render_template('cat_web.html')
+    categoria = "Sitios Web"
+    proveedores = Proveedor.obtener_por_categoria(categoria)
+    return render_template('cat_web.html', proveedores=proveedores)
 
-
-# perfi/view
+@app.route('/perfil/view/<int:id>')  #recibe aca la id y la envia a su ruta 
+def view_perfil():
+    pass
 
 #################### Ver perfil propio ####################
 @app.route("/perfil/me")
@@ -192,14 +200,6 @@ def crear_miembro():
 
 
 #************************************************** Opciones de usuario **************************************************
-
-# Edita datos del usuario (nombre, apellido, correo)
-# @app.route('/editar', methods=['POST'])
-# @login_required
-# def accion():
-
-
-
 #################### Crea la tabla de proveedores ####################
 @app.route('/validar', methods=["POST", "GET"])
 @login_required
@@ -208,10 +208,10 @@ def validar_perfil():
     id           = current_user.id
     edad         = request.form.get('edad')
     telefono     = request.form.get('telefono')
-    tipo         = request.form.get('tipo')
+    categoria         = request.form.get('categoria')
     
     if form_validar.validate_on_submit():
-        ControladorUsuarios.crear_miembro(id, edad, telefono, tipo)
+        ControladorUsuarios.crear_miembro(id, edad, telefono, categoria)
         return redirect('/perfilv2')
 
 #################### Cierra la sesión del usuario actual. ####################
@@ -238,9 +238,10 @@ def eliminar():
 
 #TODO ************************************************** Rutas de prueba **************************************************
 @app.route('/pov')
+@login_required
 def prueba():
-    usuarios = Proveedor().obtener_todos()
-    return render_template ('private/all_users.html', usuarios=usuarios)
+    usuario = current_user
+    return render_template ('perfil.html', usuario=usuario)
 
 @app.route('/comprobante')
 def comp():
