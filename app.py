@@ -133,7 +133,7 @@ def audio():
 def diseño():
     return render_template ('cat_gradico.html')
 
-@app.route('/section/diseño')
+@app.route('/section/web')
 def web():
     return render_template('cat_web.html')
 
