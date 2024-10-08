@@ -10,7 +10,7 @@ class Usuario(db.Model, UserMixin):
     apellido       = db.Column(db.String(45),  nullable=False)
     correo         = db.Column(db.String(45),  nullable=False, unique=True)
     clave          = db.Column(db.String(255), nullable=False)
-    miembro        = db.Column(db.Boolean,     nullable=False, default=False)
+    miembro        = db.Column(db.Boolean(),   nullable=False, default=False)
     created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
 
     proveedor      = db.relationship('Proveedor', back_populates='usuario', uselist=False)
@@ -44,17 +44,9 @@ class Usuario(db.Model, UserMixin):
 class Proveedor(db.Model):
     __tablename__  = "proveedores"
     id             = db.Column(db.Integer,     primary_key=True)
-    nombre         = db.Column(db.String(50),  nullable=False)
-    apellido       = db.Column(db.String(50),  nullable=False)
     edad           = db.Column(db.Integer,     nullable=True)
-    correo         = db.Column(db.String(50),  nullable=False)
     telefono       = db.Column(db.String(30),  nullable=False)
-    tipo           = db.Column(db.String(30),  nullable=False)
+    categotia      = db.Column(db.String(30),  nullable=False)
 
     usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
     usuario        = db.relationship('Usuario', back_populates = 'proveedor')
-
-    # @staticmethod
-    # def obtener_categoria(tipo):
-    #     cat_items = db.session.execute(db.select(Proveedor)).scalars()
-    #     if 

@@ -33,9 +33,9 @@
         </div>
 
         <div class="mb-3">
-            {{ form_validar.tipo.label }}
-            {{ form_validar.tipo(class='form-control') }}
-            {% for error in form_validar.tipo.errors %}
+            {{ form_validar.categoria.label }}
+            {{ form_validar.categoria(class='form-control') }}
+            {% for error in form_validar.categoria.errors %}
                 <span style="color:red;">{{ error }}</span>
             {% endfor %}
         </div>

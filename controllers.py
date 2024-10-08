@@ -15,13 +15,10 @@ class ControladorUsuarios:
         return usuario
     
     @staticmethod
-    def crear_miembro(idu, nombre, apellido, edad, correo, telefono, tipo, ):
+    def crear_miembro(idu, edad, telefono, tipo, ):
         proveedor = Proveedor()
         usuario = Usuario.query.get(idu)
-        proveedor.nombre     = nombre
-        proveedor.apellido   = apellido
         proveedor.edad       = edad
-        proveedor.correo     = correo
         proveedor.telefono   = telefono
         proveedor.tipo       = tipo
         usuario.miembro      = True
@@ -34,7 +31,7 @@ class ControladorUsuarios:
     def editar_usuario(id,nombre,apellido,correo):
         # verifica el usuario por la id en db.
         usuario = Usuario.query.get(id)
-        
+
         if not usuario:
             resultado = {
                 'error' : True,
@@ -49,15 +46,23 @@ class ControladorUsuarios:
                 'mensaje' : f"El correo {correo} ya esta en uso"
             }
             return resultado
-        
-        # if usuario.miembro == True:
-            
-        
+
         usuario.nombre   = nombre
         usuario.apellido = apellido
         usuario.correo   = correo
         db.session.commit()
         return {'usuario' : usuario}  # Retorna el usuario dentro de un diccionario
+
+    @staticmethod
+    def editar_miembro(id,edad,telefono,categoria):
+        proveedor = db.session.query(Proveedor).filter(Proveedor.usuario_id == id).first()
+        print(proveedor)
+        proveedor.edad = edad
+        proveedor.telefono = telefono
+        proveedor.categoria = categoria
+        print(proveedor.edad)
+        db.session.commit()
+        return {'usuario' : proveedor}
 
     @staticmethod
     def borrar_usuario(id):

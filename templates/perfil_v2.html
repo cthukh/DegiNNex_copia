@@ -22,6 +22,7 @@
                 <div class="user-details">
                     <h1>{{usuario.nombre}} {{ usuario.apellido }}</h1>
                     <p>{{usuario.correo}}</p>
+                    <p>{{ usuario.proveedor.telefono }}</p>
                     {% if usuario.miembro: %}
                         <p style="color:green;">cuenta profesional activa</p>
                     {% else: %}
