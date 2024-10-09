@@ -11,6 +11,7 @@ class Usuario(db.Model, UserMixin):
     correo         = db.Column(db.String(45),  nullable=False, unique=True)
     clave          = db.Column(db.String(255), nullable=False)
     biografia      = db.Column(db.String(255), nullable=True)
+    foto_perfil    = db.Column(db.String(200), nullable=True)
     miembro        = db.Column(db.Boolean(),   nullable=False, default=False)
     created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
     

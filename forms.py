@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, EmailField, TextAreaField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms.validators import DataRequired, Email, Length, EqualTo, NumberRange
 
 class FormularioRegistro(FlaskForm):
     nombre            = StringField('Nombre', validators=[DataRequired(), Length(min=3)])
@@ -23,7 +23,8 @@ class FormularioValidar(FlaskForm):
         ('Audio', 'Audio'),
         ('Sitios Web', 'Sitios Web')
         ]
-    edad              = IntegerField('Edad', validators=[DataRequired()])
+    edad              = IntegerField('Edad', validators=[DataRequired(), NumberRange(min=18)])
     telefono          = StringField('Telefono (+56 9 12345678)', default='+56 9 ' , validators=[DataRequired()])
     categoria         = SelectField('Selecciona una categoria',choices=opciones,default='default',validators=[DataRequired()]) #cambiar a area o campo
     submit            = SubmitField('Completar')
+    cancel            = SubmitField('Cancelar')

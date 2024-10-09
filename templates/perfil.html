@@ -21,8 +21,7 @@
                 <img src="https://via.placeholder.com/150" alt="" class="profile-picture">
                 <div class="user-details">
                     <h1>{{proveedor.usuario.nombre}} {{ proveedor.usuario.apellido }}</h1>
-                    <p>{{proveedor.usuario.correo}}</p>
-                    <p>{{ proveedor.usuario.telefono }}</p>
+                    <label style="color: rgb(196, 84, 162);" for="categoria">{{ proveedor.categoria }}</label>
                 </div>
             </div>
         </div>
@@ -38,24 +37,22 @@
             <div class="profile-content">
                 <div id="profile" class="tab-content active">
                     <h2>Biografia</h2>
-                    <p>perfil de categoria</p>
-                    
-                    <h2>Intereses</h2>
-                    <ul>
-                        <li>Proin quis tortor orci. Etiam at risus et justo</li>
-                        <li>In hac habitasse platea dictumst</li>
-                        <li>Proin mattis sodales diam, at molestie nec</li>
-                        <!-- <li>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor</li>
-                        <li>Vivamus ut mollis quam. Morbi in commodo nulla</li>
-                        <li>Quisque lacus quam, egestas ac tincidunt a, lacinia vel velit</li>
-                        <li>Class aptent taciti sociosqu ad litora torquent per</li> -->
-                    </ul>
+                    {% if proveedor.usuario.biografia %}
+                        {{ proveedor.usuario.biografia }}
+                    {% elif not proveedor.usuario.biografia %}
+                        <button style="color: rgb(69, 98, 196);" class="nav-item" data-tab="opt_button">Agregar descripción</button>
+                    {% endif %}
                 </div>
                 <div id="experience" class="tab-content">
-                    <p>Experiencia aqui</p>
+                    <p style="color:brown;">no se han proporcionado datos</p>
                 </div>
                 <div id="contacto" class="tab-content">
-                    <p>redes sociales</p>
+                    {% if proveedor.usuario.proveedor %}
+                        <strong><label for="telefono">Número de telefono:</label></strong>
+                        <p>{{ proveedor.telefono }}</p>
+                    {% endif %}
+                    <strong><label for="correo">Correo Electrónico</label></strong>
+                    <p>{{ proveedor.usuario.correo }}</p>
                 </div>
 
             </div>

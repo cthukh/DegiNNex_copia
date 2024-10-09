@@ -13,6 +13,9 @@ Editar Perfil
     <h2>Editar Usuario</h2>
 
     <form action="/perfil/me/editar" class="form_edit" method="POST" >
+        <label for="pfp">Sube una foto de perfil o cambiala</label>
+        <input type="file" class="nuevo" name="pfp" accept="imagen/*">
+
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
 
@@ -43,7 +46,7 @@ Editar Perfil
         {% endif %}
 
         <button type="submit" id="subir" class="btn btn-primary">Guardar Cambios</button>
-        <button type="cancel" id="cancel" class="btn btn-danger">Cancelar</button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
 

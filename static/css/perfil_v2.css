@@ -1,5 +1,4 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f0f0f0;
@@ -46,23 +45,9 @@ nav {
     justify-content: space-between;
 }
 
-.opt_button {
-    display: flex;
-    align-items: center;
-    a {
-        margin-left: 1rem;
-    }
-}
 .about_ {
     text-align: start;
 }
-
-/* nav a {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-left: auto;
-} */
 
 .user-details {
     margin-top: 20px;

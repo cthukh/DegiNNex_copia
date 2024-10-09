@@ -1,14 +1,18 @@
-from flask import Flask, render_template, flash, redirect, request
+from flask import Flask, render_template, flash, redirect, request, url_for
 from sqlalchemy import select
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from werkzeug.utils import secure_filename
+import os
 
 # Se crea una instancia de Flask y se configura con una clave secreta y la URI de la base de datos.
 app = Flask(__name__)
 app.config["SECRET_KEY"] = 'Ultra_Super_Secret_key'
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3306/deginnex'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config['UPLOAD_FOLDER'] = 'uploads'  # Carpeta donde se guardarán las imágenes
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 db = SQLAlchemy(app)
 
 # Se inicializa el gestor de sesiones y se define la vista de inicio de sesión.
@@ -59,7 +63,7 @@ def register():
     form   = FormularioRegistro()
     error  = None
 
-    #################### Validación del formulario. ####################
+    #################### VALIDACIÓN DEL FORMULARIO. ####################
     # Comprobar si el correo ya está registrado; Si no, se crea el usuario.
     if form.validate_on_submit():
         print("form valido")
@@ -87,7 +91,7 @@ def register():
         flash("Form invalido")
         return auth(form_registro=form)
 
-#################### Validar el acceso del usuario. ####################
+#################### VALIDAR EL ACCESO AL USUARIO. ####################
 # Si es exitoso, iniciar sesión.
 @app.route("/login", methods=["POST"])
 def login():
@@ -119,44 +123,46 @@ def index():
     return render_template('index.html')
 
 #################### Selección de categorias ####################
-@app.route('/section/video')
+@app.route('/section/video') # Ruta videos
 def video():
     categoria = "Videos"
     proveedores = Proveedor.obtener_por_categoria(categoria)
     return render_template ('cat_video.html', proveedores=proveedores)
 
-@app.route('/section/audio')
+@app.route('/section/audio') # Ruta audio
 def audio():
     categoria = "Audio"
     proveedores = Proveedor.obtener_por_categoria(categoria)
     return render_template ('cat_audio.html', proveedores=proveedores)
 
-@app.route('/section/diseño')
+@app.route('/section/diseño') # Ruta diseño grafico
 def diseño():
     categoria = "Diseño Gráfico"
     proveedores = Proveedor.obtener_por_categoria(categoria)
     return render_template ('cat_gradico.html', proveedores=proveedores)
 
-@app.route('/section/web')
+@app.route('/section/web') # Ruta sitios web
 def web():
     categoria = "Sitios Web"
     proveedores = Proveedor.obtener_por_categoria(categoria)
     return render_template('cat_web.html', proveedores=proveedores)
 
-@app.route('/perfil/view/<int:id>')  #recibe aca la id y la envia a su ruta           #! TRABAJANDO ÁCA
+#************************************************** RUTAS DE PERFIL. **************************************************
+
+####################  VER PERFIL SELECCIONADO.  ####################
+@app.route('/perfil/view/<int:id>')
 def view_perfil(id):
     proveedor = Proveedor.buscar_por_id(id)
     return render_template ('perfil.html', proveedor = proveedor)
 
-#################### Ver perfil propio ####################
+####################  VER PERFIL PROPIO.  ####################
 @app.route("/perfil/me")
 @login_required
 def perfil():
     # Muestra solo la sesión activa.
     return render_template("perfil_v2.html", usuario=current_user)
 
-#################### editar perfil propio ####################
-
+####################  EDITAR TU PERFIL.  ####################
 @app.route('/perfil/me/editar', methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
@@ -171,8 +177,14 @@ def editar_perfil():
         apellido = request.form.get('apellido')
         correo   = request.form.get('correo')
         bio      = request.form.get('bio')
+        foto     = request.form.get('pfp')
+        if foto:
+            filename = secure_filename(foto.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)           #!    ESTO NO FUNCIONA
+            foto.save(filepath)
+
         print("esta editando el usuario")
-        resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
+        resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio,filepath)
 
         if current_user.miembro == True:
             edad        = request.form.get('edad')
@@ -192,7 +204,7 @@ def editar_perfil():
         return redirect('/perfil/me')  # Redirige a la ruta de acción, si se usa POST
     
 
-#################### Convertirse en proveedor ####################
+####################  CONVERTIRSE EN PROVEEDOR.  ####################
 @app.route('/perfil/me/verificar')
 @login_required
 def crear_miembro():
@@ -200,8 +212,8 @@ def crear_miembro():
     return render_template('validar_proveedor.html', form_validar=form_validar)
 
 
-#************************************************** Opciones de usuario **************************************************
-#################### Crea la tabla de proveedores ####################
+#************************************************** ACCIONES USUARIO **************************************************
+####################  CREAR LA TABLA PROVEEDORES.  ####################
 @app.route('/validar', methods=["POST", "GET"])
 @login_required
 def validar_perfil():
@@ -215,7 +227,7 @@ def validar_perfil():
         ControladorUsuarios.crear_miembro(id, edad, telefono, categoria)
         return redirect('/perfilv2')
 
-#################### Cierra la sesión del usuario actual. ####################
+####################  CERRAR SESIÓN.  ####################
 # (No se borra de la db)
 @app.route("/cuenta/logout")
 def logout():
@@ -224,7 +236,7 @@ def logout():
     print(f"El usuario ha cerrado sesión")
     return(redirect("/"))
 
-#################### Elimina al usuario actual de la db.  ####################
+####################  ELIMINAR CUENTA.  ####################
 @app.route('/cuenta/eliminar')
 @login_required
 def eliminar():
@@ -233,6 +245,7 @@ def eliminar():
     flash ("usuario eliminado")
     return redirect('/')
 
+####################  ELIMINAR VERIFICACIÓN  ####################
 @app.route('/prof/eliminar')
 @login_required
 def eliminar_profesion():
@@ -265,7 +278,7 @@ def perfilv2():
 
 #! ************************************************** Manejo de errores **************************************************
 
-#################### Página no encontrada. ####################
+#################### PAGÍNA NO ENCONTRADA. ####################
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404

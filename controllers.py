@@ -32,7 +32,7 @@ class ControladorUsuarios:
 
 ########################################  EDITAR  ########################################
     @staticmethod
-    def editar_usuario(id,nombre,apellido,correo,bio):
+    def editar_usuario(id,nombre,apellido,correo,bio,filepath):
         # verifica el usuario por la id en db.
         usuario = Usuario.query.get(id)
 
@@ -50,13 +50,14 @@ class ControladorUsuarios:
                 'mensaje' : f"El correo {correo} ya esta en uso"
             }
             return resultado
-
-        usuario.nombre     = nombre
-        usuario.apellido   = apellido
-        usuario.correo     = correo
-        usuario.biografia  = bio
+        
+        usuario.nombre      = nombre
+        usuario.apellido    = apellido
+        usuario.correo      = correo
+        usuario.biografia   = bio
+        usuario.foto_perfil = filepath
         db.session.commit()
-        return {'usuario' : usuario}  # Retorna el usuario dentro de un diccionario
+        return {'usuario' : usuario} # Retorna el usuario dentro de un diccionario
 
     @staticmethod
     def editar_miembro(id,edad,telefono,categoria):

@@ -2,6 +2,10 @@ body {
     background-color: #f4f4f4;
 }
 
+a {
+    color: rgb(83, 10, 80);
+}
+
 .main {
     font-family: Arial, sans-serif;
     display: flex;
@@ -32,9 +36,10 @@ body {
     cursor: pointer;
 }
 
-/* .profile:hover {
+.profile:hover {
     transform: scale(1.05);
-} */
+    color: rgb(199, 26, 92);
+}
 
 .profile img {
     border-radius: 50%;

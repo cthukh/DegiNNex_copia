@@ -42,16 +42,18 @@
             <div class="profile-content">
                 <div id="profile" class="tab-content active">
                     <h2>Biografia</h2>
-                    {% if usuario.biografia == NULL: %}
-                        <button style="color: rgb(69, 98, 196);" class="nav-item" data-tab="opt_button">Agregar descripción</button>
-                    {% elif usuario.biografia %}
+                    {% if usuario.biografia %}
                         {{ usuario.biografia }}
+                    {% elif not usuario.biografia %}
+                        <a href="/perfil/me/editar" style="color: rgb(69, 98, 196);" class="nav-item" >Agregar descripción</a>
                     {% endif %}
                 </div>
 
                 <div id="contacto" class="tab-content">
-                    <strong><label for="telefono">Número de telefono:</label></strong>
-                    <p>{{ usuario.proveedor.telefono }}</p>
+                    {% if usuario.proveedor %}
+                        <strong><label for="telefono">Número de telefono:</label></strong>
+                        <p>{{ usuario.proveedor.telefono }}</p>
+                    {% endif %}
                     <strong><label for="correo">Correo Electrónico</label></strong>
                     <p>{{ usuario.correo }}</p>
                 </div>
