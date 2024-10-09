@@ -22,20 +22,23 @@ Editar Perfil
         <label for="correo">Correo Electrónico:</label>
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
+        <label for="bio">Biografia</label>
+        <input type="text" class="nuevo" name="bio" value=" ">
+
         {% if usuario.miembro == True: %}
             <label for="edad">Edad:</label>
-            <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}">
+            <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}" required>
 
             <label for="telefono">Telefono:</label>
-            <input type="text" class="nuevo" name="telefono" value="{{ proveedor.telefono }}">
+            <input type="text" class="nuevo" name="telefono" value="{{ proveedor.telefono }}" required>
 
             <label for="categoria">Categoria: </label>
             <select name="categoria" class="nuevo" id="categoria">
-                <option value="sin_area">{{ proveedor.categoria }}</option>
-                <option value="Video">Video</option>
-                <option value="diseño_grafico">Diseño Gráfico</option>
-                <option value="audio">Audio</option>
-                <option value="sitio_web">Sitios Web</option>
+                <option value="sin_area">        {{ proveedor.categoria }}</option>
+                <option value="Video">           Video</option>
+                <option value="diseño_grafico">  Diseño Gráfico</option>
+                <option value="audio">           Audio</option>
+                <option value="sitio_web">       Sitios Web</option>
             </select>
         {% endif %}
 

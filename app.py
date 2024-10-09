@@ -123,7 +123,6 @@ def index():
 def video():
     categoria = "Videos"
     proveedores = Proveedor.obtener_por_categoria(categoria)
-    print(proveedores)
     return render_template ('cat_video.html', proveedores=proveedores)
 
 @app.route('/section/audio')
@@ -144,9 +143,10 @@ def web():
     proveedores = Proveedor.obtener_por_categoria(categoria)
     return render_template('cat_web.html', proveedores=proveedores)
 
-@app.route('/perfil/view/<int:id>')  #recibe aca la id y la envia a su ruta 
-def view_perfil():
-    pass
+@app.route('/perfil/view/<int:id>')  #recibe aca la id y la envia a su ruta           #! TRABAJANDO ÁCA
+def view_perfil(id):
+    proveedor = Proveedor.buscar_por_id(id)
+    return render_template ('perfil.html', proveedor = proveedor)
 
 #################### Ver perfil propio ####################
 @app.route("/perfil/me")
@@ -170,8 +170,9 @@ def editar_perfil():
         nombre   = request.form.get('nombre')
         apellido = request.form.get('apellido')
         correo   = request.form.get('correo')
+        bio      = request.form.get('bio')
         print("esta editando el usuario")
-        resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo)
+        resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
 
         if current_user.miembro == True:
             edad        = request.form.get('edad')
@@ -227,13 +228,17 @@ def logout():
 @app.route('/cuenta/eliminar')
 @login_required
 def eliminar():
-    user_id = current_user.id
-    ver     = current_user.miembro
+    user_id     = current_user.id
     ControladorUsuarios.borrar_usuario(user_id)
-    # if ver == True:
-        
     flash ("usuario eliminado")
     return redirect('/')
+
+@app.route('/prof/eliminar')
+@login_required
+def eliminar_profesion():
+    idu = current_user.id
+    ControladorUsuarios.despedir(idu)
+    return redirect('/perfilv2')
 
 
 #TODO ************************************************** Rutas de prueba **************************************************
@@ -264,4 +269,3 @@ def perfilv2():
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404
-

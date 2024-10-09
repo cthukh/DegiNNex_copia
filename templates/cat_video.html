@@ -13,7 +13,7 @@ Perfiles en sección video
     {% for proveedor in proveedores %}
         <section id="perfiles">
             <!-- enviar la id del proveedor de alguna forma  -->
-            <a href="/perfil/view/"> 
+            <a href="/perfil/view/{{proveedor.id}}">
                 <div class="profile" onclick="showProfile('perfil1')">
                     <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
                     <div class="summary">

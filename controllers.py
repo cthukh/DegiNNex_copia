@@ -20,11 +20,11 @@ class ControladorUsuarios:
     def crear_miembro(idu, edad, telefono, categoria, ):
         proveedor = Proveedor()
         usuario = Usuario.query.get(idu)
-        proveedor.edad       = edad
-        proveedor.telefono   = telefono
-        proveedor.categoria  = categoria
-        usuario.miembro      = True
-        proveedor.usuario_id= idu
+        proveedor.edad        = edad
+        proveedor.telefono    = telefono
+        proveedor.categoria   = categoria
+        usuario.miembro       = True
+        proveedor.usuario_id  = idu
 
         db.session.add(proveedor)
         db.session.commit()
@@ -32,7 +32,7 @@ class ControladorUsuarios:
 
 ########################################  EDITAR  ########################################
     @staticmethod
-    def editar_usuario(id,nombre,apellido,correo):
+    def editar_usuario(id,nombre,apellido,correo,bio):
         # verifica el usuario por la id en db.
         usuario = Usuario.query.get(id)
 
@@ -51,9 +51,10 @@ class ControladorUsuarios:
             }
             return resultado
 
-        usuario.nombre   = nombre
-        usuario.apellido = apellido
-        usuario.correo   = correo
+        usuario.nombre     = nombre
+        usuario.apellido   = apellido
+        usuario.correo     = correo
+        usuario.biografia  = bio
         db.session.commit()
         return {'usuario' : usuario}  # Retorna el usuario dentro de un diccionario
 
@@ -68,10 +69,11 @@ class ControladorUsuarios:
         db.session.commit()
         return {'usuario' : proveedor}
 
-######################################## BORRAR ########################################
+########################################  BORRAR  ########################################
     @staticmethod
     def borrar_usuario(id):
         usuario = Usuario.query.get(id)
+        emp = Proveedor.query.get(usuario_id = id)
         if not usuario:
             resultado = {
                 'error' : True,
@@ -81,5 +83,23 @@ class ControladorUsuarios:
         print(usuario)
         if usuario:
             db.session.delete(usuario)
+            if emp:
+                db.session.delete(emp)
             db.session.commit()
-            return {'mensaje': "usuario eliminado"}
+            return {'mensaje' : "usuario eliminado"}
+
+    @staticmethod
+    def despedir(id):
+        emp = Proveedor.query.get(usuario_id = id)
+        print (emp)
+        if not emp:
+            resultado = {
+                'error' : True,
+                'mensaje' : f"El usuario {id} no existe en la db"
+            }
+            return resultado
+
+        if emp:
+            db.session.delete(emp)
+            db.session.commit()
+            return{'mensaje' : "se elimino la cuenta profesional"}
