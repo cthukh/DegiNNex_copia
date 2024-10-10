@@ -18,11 +18,11 @@
     <div class="container">
         <div class="profile-sidebar">
             <div class="profile-header">
-                <img src="https://via.placeholder.com/150" alt="" class="profile-picture">
+                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture">
                 <div class="user-details">
                     <h1>{{ usuario.nombre }} {{ usuario.apellido }}</h1>
                     {% if usuario.miembro: %}
-                        <p style="color:green;">cuenta profesional activa</p>
+                        <p style="color:green;">Cuenta Profesional Activa</p>
                     {% else: %}
                         <p style="color:gray;" >Cliente</p>
                     {% endif %}

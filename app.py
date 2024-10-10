@@ -11,8 +11,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = 'Ultra_Super_Secret_key'
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3306/deginnex'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.config['UPLOAD_FOLDER'] = 'uploads'  # Carpeta donde se guardarán las imágenes
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+app.config['UPLOAD_FOLDER'] = ' static/uploads/'
 db = SQLAlchemy(app)
 
 # Se inicializa el gestor de sesiones y se define la vista de inicio de sesión.
@@ -177,14 +176,21 @@ def editar_perfil():
         apellido = request.form.get('apellido')
         correo   = request.form.get('correo')
         bio      = request.form.get('bio')
-        foto     = request.form.get('pfp')
-        if foto:
-            filename = secure_filename(foto.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)           #!    ESTO NO FUNCIONA
-            foto.save(filepath)
+
+        if 'photo' not in request.files:
+            return flash('No file part')
+        file = request.files['photo']
+        if file.filename == '':
+            return flash('No selected file')
+        if file:
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            ControladorUsuarios.op_fotos(idq,file_path)
+            print(file_path)
 
         print("esta editando el usuario")
-        resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio,filepath)
+        resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
 
         if current_user.miembro == True:
             edad        = request.form.get('edad')

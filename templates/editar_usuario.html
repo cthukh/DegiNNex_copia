@@ -12,9 +12,13 @@ Editar Perfil
 <div class="main">
     <h2>Editar Usuario</h2>
 
-    <form action="/perfil/me/editar" class="form_edit" method="POST" >
-        <label for="pfp">Sube una foto de perfil o cambiala</label>
-        <input type="file" class="nuevo" name="pfp" accept="imagen/*">
+    <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
+        {% if usuario.foto_perfil: %}
+            <label for="pfp">Sube una foto de perfil o cambiala</label>
+            <input type="file" name="photo" accept="image/*" required>
+        {% elif usuario.foto_perfil: %}                 
+                                                <!-- !aca trabajando -->
+
 
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
