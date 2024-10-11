@@ -1,5 +1,6 @@
 from models import Usuario, db, Proveedor
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 class ControladorUsuarios:
     
@@ -62,9 +63,9 @@ class ControladorUsuarios:
     @staticmethod
     def op_fotos(id,file_path):
         usuario = Usuario.query.get(id)
-        usuario.foto_perfil = file_path
+        usuario.foto_perfil = f'uploads/{os.path.basename(file_path)}'
 
-        db.session.commit
+        db.session.commit()
         return {'usuario' : usuario}
 
     @staticmethod

@@ -96,6 +96,11 @@ nav {
     display: none;
 }
 
+.utm a{
+    margin-left: 5rem;
+    margin-bottom: 2rem;
+}
+
 .tab-content.active {
     display: block;
 }

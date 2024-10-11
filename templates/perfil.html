@@ -18,7 +18,7 @@
     <div class="container">
         <div class="profile-sidebar">
             <div class="profile-header">
-                <img src="https://via.placeholder.com/150" alt="" class="profile-picture">
+                <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}"  alt="foto_de_perfil" class="profile-picture">
                 <div class="user-details">
                     <h1>{{proveedor.usuario.nombre}} {{ proveedor.usuario.apellido }}</h1>
                     <label style="color: rgb(196, 84, 162);" for="categoria">{{ proveedor.categoria }}</label>

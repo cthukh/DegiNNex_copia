@@ -1,14 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, EmailField, TextAreaField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, NumberRange
-
-opciones = [
-        ('default','Sin área'),
-        ('Videos', 'Videos'),
-        ('Diseño gráfico', 'Diseño Gráfico'),
-        ('Audio', 'Audio'),
-        ('Sitios Web', 'Sitios Web')
-        ]
+from app import op_form
 
 class FormularioRegistro(FlaskForm):
     nombre            = StringField('Nombre', validators=[DataRequired(), Length(min=3)])
@@ -26,5 +19,5 @@ class FormularioAcceso(FlaskForm):
 class FormularioValidar(FlaskForm):
     edad              = IntegerField('Edad', validators=[DataRequired(), NumberRange(min=18)])
     telefono          = StringField('Telefono (+56 9 12345678)', default='+56 9 ' , validators=[DataRequired()])
-    categoria         = SelectField('Selecciona una categoria',choices=opciones,default='default',validators=[DataRequired()]) #cambiar a area o campo
+    categoria         = SelectField('Selecciona una categoria',choices=op_form,default='default',validators=[DataRequired()]) #cambiar a area o campo
     submit            = SubmitField('Completar')

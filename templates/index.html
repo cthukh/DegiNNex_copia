@@ -12,72 +12,118 @@
 {% endblock %}
 
 {% block content %}
+<div class="content">
+    <div class="intro">
+        <div class="titulo caveat-titulo">
+            <strong><p>DigiLapp</p></strong> 
+            <img src="{{ url_for('static', filename='img/gigilapp.png') }}" width="220px" alt="logo-diginnex">
+        </div>
+        <div class="lema bebas-neue-regular">
+            <p>Descubre, conecta y resuelve.</p>
+        </div>
+
+        <div class="texto-bienvenida">
+            <p>
+                Bienvenido a nuestra plataforma, donde los nuevos talentos encuentran su lugar en el mundo del trabajo remoto. 
+                Aquí, la comunidad de apasionados por la edición de videos, diseño gráfico y más, 
+                pueden mostrar su potencial y habilidades, sin importar su nivel de experiencia.
+                </br>
+                </br>
+                Explora perfiles creativos y auténticos de individuos listos para dar lo mejor de sí en proyectos emocionantes. 
+                Desde editores que dan vida a tus ideas hasta desarrolladores web que crean sitios innovadores, 
+                nuestro espacio es una estacion para creación de experiencia.
+                </br>
+                </br>
+                ¿Buscas un profesional para un proyecto específico? Publica tu necesidad y deja que los talentos se acerquen a ti. 
+                Imagina solicitar un video que necesitas editar y recibir respuestas de la comunidad dispuesta a colaborar. 
+                ¡Puede ser así de simple!
+                </br>
+                </br>
+                Únete a nuestra comunidad y transforma la manera en que encuentras y ofreces oportunidades en el mundo digital. 
+                Aquí, el potencial se encuentra con la oportunidad, y cada proyecto es una nueva historia que contar. 
+                ¡Inscríbete y comienza a conectar hoy mismo!
+            </p>
+        </div>
+    </div>
+
+
+
+
     <div class="main">
         <!-- Servicios -->
-        <section class="main-section" id="services">
-            <h2>Categorias</h2>
+        <section class="main-section" id="categorias">
+            <h2>Explorar categorias:</h2>
 
-            <a href="/section/video">
-                <!-- categoria videos -->
+            <a href="{{ url_for('manejo_categorias', cat='Videos') }}">
+                <!-- *categoria videos* -->
                 <div class="service" >
                     <div class="service-item">
-                        <h3>Videos</h3>
+                        <h3>Editores de videos</h3>
                     </div>
                     <div class="service-img">
                         <img src="{{url_for('static', filename='img/editando-video.jpg')}}" alt="editando video">
                     </div>
                     <div class="overlay">
-                        <h4>Crea, mejora o edita lo que no te gusto de tus videos pidiendole a alguien que lo haga por ti.</h4>
+                        <h4>Encuentra editores de video creativos que transforman tus ideas en contenido visual atractivo. 
+                            Desde proyectos personales hasta comerciales, 
+                            nuestros freelancers están listos para dar vida a tu visión.</h4>
                     </div>
                 </div>
             </a>
 
-            <a href="/section/diseño">
-                <!-- categoria imagenes -->
+            <a href="{{ url_for('manejo_categorias', cat='Diseño Gráfico') }}">
+                <!-- *Categoria Artista Digital* -->
                 <div class="service">
                     <div class="service-item">
-                        <h3>Diseño Gráfico</h3>
+                        <h3>Artistas Digitales</h3>
                     </div>
                     <div class="service-img">
-                        <img src="{{url_for('static', filename='img/fotografo.png')}}" alt="fotografiando novios">
+                        <img src="{{url_for('static', filename='img/Mejores-tabletas-graficas.jpg')}}" alt="fotografiando novios">
                     </div>
                     <div class="overlay">
-                        <h4>Deja que un profesional se encargue de esa imagen que tienes pensado como logo de tu empresa.</h4>
+                        <h4>Conecta con artistas digitales que pueden crear identidades visuales impactantes. 
+                            Ya sea que necesites un logotipo, ilustraciones o materiales de marketing, 
+                            aquí encontrarás el talento adecuado.</h4>
                     </div>
                 </div>
             </a>
 
-            <a href="/section/audio">
-                <!-- categoria audio -->
+            <a href="{{ url_for('manejo_categorias', cat='Audio') }}">
+                <!-- *Categoria Audio* -->
                 <div class="service">
                     <div class="service-item">
-                        <h3>Audio</h3>
+                        <h3>productores músicales</h3>
                     </div>
                     <div class="service-img">
                         <img src="{{url_for('static', filename='img/haciedo-musica-digital.png')}}" alt="haciendo musica">
                     </div>
                     <div class="overlay">
-                        <h4>Si crees que no tienes ritmo, deja que alguien que si lo haga por ti.</h4>
+                        <h4>Descubre productores musicales y editores de audio que pueden llevar tu proyecto al siguiente nivel. 
+                            Desde música original hasta edición de podcasts, 
+                            estos freelancers podran hacer destacar tu proyecto.</h4>
                     </div>
                 </div>
             </a>
 
-            <a href="/section/web">
-                <!-- categoria sitios webs -->
+            <a href="{{ url_for('manejo_categorias', cat='Sitios Web') }}">
+                <!-- *Categoria Sitios Web* -->
                 <div class="service">
                     <div class="service-item">
-                        <h3>Sitios Web</h3>
+                        <h3>desarrolladores web</h3>
                     </div>
                     <div class="service-img">
                         <img src="{{url_for('static', filename='img/programando-pagina-web.jpg')}}" alt="codeando web">
                     </div>
                     <div class="overlay">
-                        <h4>Si tienes la idea pero no los conocimientos, hay alguien que te puede ayudar.</h4>
+                        <h4>Colabora con desarrolladores web que construyen sitios funcionales y atractivos. 
+                            Desde tiendas en línea hasta blogs personales, 
+                            busca y encontrarás.</h4>
                     </div>
                 </div>
             </a>
         </section>
     </div>
+</div>
 {% endblock %}
 
 {% block script %}

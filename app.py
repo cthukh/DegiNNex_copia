@@ -11,7 +11,17 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = 'Ultra_Super_Secret_key'
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3306/deginnex'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.config['UPLOAD_FOLDER'] = ' static/uploads/'
+app.config['UPLOAD_FOLDER'] = 'static/uploads/'
+op_form =[
+        ('default','Sin área'),
+        ('Editor de videos', 'Editor de videos'),
+        ('Artista Digital', 'Artista Digital'),
+        ('Productor músical', 'Productor músical'),
+        ('Desarrollador Web', 'Desarrollador Web')
+        ]
+
+#!  erro en cambiar categoria, muestra la edad
+
 db = SQLAlchemy(app)
 
 # Se inicializa el gestor de sesiones y se define la vista de inicio de sesión.
@@ -122,29 +132,11 @@ def index():
     return render_template('index.html')
 
 #################### Selección de categorias ####################
-@app.route('/section/video') # Ruta videos
-def video():
-    categoria = "Videos"
-    proveedores = Proveedor.obtener_por_categoria(categoria)
-    return render_template ('cat_video.html', proveedores=proveedores)
-
-@app.route('/section/audio') # Ruta audio
-def audio():
-    categoria = "Audio"
-    proveedores = Proveedor.obtener_por_categoria(categoria)
-    return render_template ('cat_audio.html', proveedores=proveedores)
-
-@app.route('/section/diseño') # Ruta diseño grafico
-def diseño():
-    categoria = "Diseño Gráfico"
-    proveedores = Proveedor.obtener_por_categoria(categoria)
-    return render_template ('cat_gradico.html', proveedores=proveedores)
-
-@app.route('/section/web') # Ruta sitios web
-def web():
-    categoria = "Sitios Web"
-    proveedores = Proveedor.obtener_por_categoria(categoria)
-    return render_template('cat_web.html', proveedores=proveedores)
+# Categorias hasta ahora: videos, diseño grafico, audio, sitios web
+@app.route('/seccion/<string:cat>')
+def manejo_categorias(cat):
+    proveedores = Proveedor.obtener_por_categoria(cat)
+    return render_template('unique_cat.html', proveedores=proveedores)
 
 #************************************************** RUTAS DE PERFIL. **************************************************
 
@@ -176,18 +168,16 @@ def editar_perfil():
         apellido = request.form.get('apellido')
         correo   = request.form.get('correo')
         bio      = request.form.get('bio')
-
-        if 'photo' not in request.files:
-            return flash('No file part')
         file = request.files['photo']
+        
         if file.filename == '':
             return flash('No selected file')
         if file:
-            filename = secure_filename(file.filename)
+            filename  = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
-            ControladorUsuarios.op_fotos(idq,file_path)
             print(file_path)
+            ControladorUsuarios.op_fotos(idq,file_path)
 
         print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
@@ -206,9 +196,8 @@ def editar_perfil():
         else:
             flash("Perfil actualizado con éxito")
             print("Perfil actualizado con éxito")
-            
+
         return redirect('/perfil/me')  # Redirige a la ruta de acción, si se usa POST
-    
 
 ####################  CONVERTIRSE EN PROVEEDOR.  ####################
 @app.route('/perfil/me/verificar')
@@ -227,7 +216,7 @@ def validar_perfil():
     id           = current_user.id
     edad         = request.form.get('edad')
     telefono     = request.form.get('telefono')
-    categoria         = request.form.get('categoria')
+    categoria    = request.form.get('categoria')
     
     if form_validar.validate_on_submit():
         ControladorUsuarios.crear_miembro(id, edad, telefono, categoria)
@@ -261,26 +250,9 @@ def eliminar_profesion():
 
 
 #TODO ************************************************** Rutas de prueba **************************************************
-@app.route('/pov')
-@login_required
+@app.route('/prueba')
 def prueba():
-    usuario = current_user
-    return render_template ('perfil.html', usuario=usuario)
-
-@app.route('/comprobante')
-def comp():
-    return render_template ('validar_proveedor.html')
-
-@app.route('/all_users')
-def all_users():
-    usuarios = Usuario.obtener_todos()
-    return render_template('private/all_users.html', usuarios=usuarios)
-
-@app.route('/perfilv2')
-@login_required
-def perfilv2():
-    usuario = current_user
-    return render_template('perfil_v2.html', usuario=usuario )
+    return render_template('')
 
 #! ************************************************** Manejo de errores **************************************************
 

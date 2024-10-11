@@ -1,11 +1,11 @@
 
-<!-- home perfil -->
+<!-- PERFIL PROPIO -->
 
 {% extends "base_template.html" %}
 
 
 {% block title %}
-    Perfil
+    Mi perfil
 {% endblock %}
 
 {% block link %}
@@ -18,11 +18,16 @@
     <div class="container">
         <div class="profile-sidebar">
             <div class="profile-header">
-                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture">
+                {% if usuario.foto_perfil: %}
+                    <img src="{{ url_for('static', filename=usuario.foto_perfil) }}"  alt="{{usuario.foto_perfil}}" class="profile-picture">
+                {% else: %}
+                    <img src="https://via.placeholder.com/150" alt="sin foto de perfil" class="profile-picture">
+                {% endif %}
                 <div class="user-details">
                     <h1>{{ usuario.nombre }} {{ usuario.apellido }}</h1>
                     {% if usuario.miembro: %}
                         <p style="color:green;">Cuenta Profesional Activa</p>
+                        <p style="color: cornflowerblue;">{{ usuario.proveedor.categoria }}</p>
                     {% else: %}
                         <p style="color:gray;" >Cliente</p>
                     {% endif %}
@@ -59,7 +64,7 @@
                 </div>
 
                 </div>
-                <div id="opt_button" class="tab-content">
+                <div id="opt_button" class="tab-content utm">
                     <a href="/perfil/me/editar"><button class="btn btn-primary">Editar Perfil</button></a>
                     {% if usuario.miembro == False %}
                         <a href="/perfil/me/verificar"><button class="btn btn-success">Validar Perfil</button></a>

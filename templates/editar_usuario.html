@@ -13,12 +13,11 @@ Editar Perfil
     <h2>Editar Usuario</h2>
 
     <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
-        {% if usuario.foto_perfil: %}
-            <label for="pfp">Sube una foto de perfil o cambiala</label>
-            <input type="file" name="photo" accept="image/*" required>
-        {% elif usuario.foto_perfil: %}                 
-                                                <!-- !aca trabajando -->
-
+        <!-- {% if usuario.foto_perfil: %} -->
+        <!-- <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture"> -->
+        <!-- {% endif %} -->
+        <label for="pfp">Sube una foto de perfil o cambiala</label>
+        <input type="file" name="photo" accept="image/*" >
 
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
@@ -41,11 +40,13 @@ Editar Perfil
 
             <label for="categoria">Categoria: </label>
             <select name="categoria" class="nuevo" id="categoria">
-                <option value="sin_area">        {{ proveedor.categoria }}</option>
-                <option value="Video">           Video</option>
-                <option value="diseño_grafico">  Diseño Gráfico</option>
-                <option value="audio">           Audio</option>
-                <option value="sitio_web">       Sitios Web</option>
+                <option value="sin_area">{{ proveedor.categoria }}</option>
+                <option value="Editor de videos">Editor de videos</option>
+                <option value="Artista Digital">Artista Digital</option>
+                <option value="Productor músical">Productor músical</option>
+                <option value="Desarrollador Web">Desarrollador Web</option>
+
+
             </select>
         {% endif %}
 
@@ -57,6 +58,14 @@ Editar Perfil
 
 
 {% endblock %}
+
+<!-- <option value="sin_area">proveedor.categoria }}</option> -->
+
+                <!-- <option value="Editor de videos}}">           Editor de videos}}</option>
+                <option value="diseño_grafico">  Diseño Gráfico</option>
+                <option value="audio">           Audio</option>
+                <option value="sitio_web">       Sitios Web</option> -->
+
 
 
 
