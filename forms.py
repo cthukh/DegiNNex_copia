@@ -18,6 +18,6 @@ class FormularioAcceso(FlaskForm):
 
 class FormularioValidar(FlaskForm):
     edad              = IntegerField('Edad', validators=[DataRequired(), NumberRange(min=18)])
-    telefono          = StringField('Telefono (+56 9 12345678)', default='+56 9 ' , validators=[DataRequired()])
+    telefono          = StringField('Telefono (+56 9 87654321)', default='+56 9 ' , validators=[DataRequired()])
     categoria         = SelectField('Selecciona una categoria',choices=op_form,default='default',validators=[DataRequired()]) #cambiar a area o campo
     submit            = SubmitField('Completar')

@@ -25,10 +25,10 @@
                 {% endif %}
                 <div class="user-details">
                     <h1>{{ usuario.nombre }} {{ usuario.apellido }}</h1>
-                    {% if usuario.miembro: %}
+                    {% if usuario.miembro == True %}
                         <p style="color:green;">Cuenta Profesional Activa</p>
                         <p style="color: cornflowerblue;">{{ usuario.proveedor.categoria }}</p>
-                    {% else: %}
+                    {% elif usuario.miembro == False %}
                         <p style="color:gray;" >Cliente</p>
                     {% endif %}
                 </div>

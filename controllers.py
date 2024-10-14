@@ -18,7 +18,7 @@ class ControladorUsuarios:
         return usuario
     
     @staticmethod
-    def crear_miembro(idu, edad, telefono, categoria, ):
+    def crear_miembro(idu, edad, telefono, categoria):
         proveedor = Proveedor()
         usuario = Usuario.query.get(idu)
         proveedor.edad        = edad
@@ -70,20 +70,21 @@ class ControladorUsuarios:
 
     @staticmethod
     def editar_miembro(id,edad,telefono,categoria):
-        proveedor = db.session.query(Proveedor).filter(Proveedor.usuario_id == id).first()
+        proveedor = Proveedor.query.filter_by(usuario_id = id).first()
         print(proveedor)
-        proveedor.edad      = edad
-        proveedor.telefono  = telefono
-        proveedor.categoria = categoria
+        proveedor.edad       = edad
+        proveedor.telefono   = telefono
+        proveedor.categoria  = categoria
         
         db.session.commit()
         return {'usuario' : proveedor}
 
 ########################################  BORRAR  ########################################
     @staticmethod
+    # borra el usuario de la db
     def borrar_usuario(id):
         usuario = Usuario.query.get(id)
-        emp = Proveedor.query.get(usuario_id = id)
+        emp = Proveedor.query.filter_by(usuario_id = id).first()
         if not usuario:
             resultado = {
                 'error' : True,
@@ -99,9 +100,10 @@ class ControladorUsuarios:
             return {'mensaje' : "usuario eliminado"}
 
     @staticmethod
+    # Elimina la cuenta profesional
     def despedir(id):
-        emp = Proveedor.query.get(usuario_id = id)
-        print (emp)
+        emp = Proveedor.query.filter_by(usuario_id = id).first()
+        print(f"el usuario xd{emp}" )
         if not emp:
             resultado = {
                 'error' : True,
@@ -110,6 +112,7 @@ class ControladorUsuarios:
             return resultado
 
         if emp:
+            emp.usuario.miembro = False
             db.session.delete(emp)
             db.session.commit()
             return{'mensaje' : "se elimino la cuenta profesional"}

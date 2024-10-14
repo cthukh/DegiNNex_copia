@@ -185,7 +185,7 @@ def editar_perfil():
         if current_user.miembro == True:
             edad        = request.form.get('edad')
             telefono    = request.form.get('telefono')
-            categoria   = request.form.get('edad')
+            categoria   = request.form.get('categoria')
             print("es miembro y esta editando")
             resultadov2 = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
 
@@ -220,7 +220,7 @@ def validar_perfil():
     
     if form_validar.validate_on_submit():
         ControladorUsuarios.crear_miembro(id, edad, telefono, categoria)
-        return redirect('/perfilv2')
+        return redirect('/perfil/me')
 
 ####################  CERRAR SESIÓN.  ####################
 # (No se borra de la db)
@@ -246,7 +246,7 @@ def eliminar():
 def eliminar_profesion():
     idu = current_user.id
     ControladorUsuarios.despedir(idu)
-    return redirect('/perfilv2')
+    return redirect('/perfil/me')
 
 
 #TODO ************************************************** Rutas de prueba **************************************************

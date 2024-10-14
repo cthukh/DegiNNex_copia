@@ -13,11 +13,55 @@ Editar Perfil
     <h2>Editar Usuario</h2>
 
     <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
-        <!-- {% if usuario.foto_perfil: %} -->
-        <!-- <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture"> -->
-        <!-- {% endif %} -->
-        <label for="pfp">Sube una foto de perfil o cambiala</label>
-        <input type="file" name="photo" accept="image/*" >
+
+        
+        <div id="profile-picture-container" class="tab-content {% if usuario.foto_perfil %}active{% else %}hidden{% endif %}">
+            {% if usuario.foto_perfil %}
+                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{usuario.foto_perfil}}" class="profile-picture">
+                <button class="btn btn-primary" onclick="showUpload()">Editar foto de perfil</button>
+                <button class="btn btn-secondary">Borrar foto de perfil</button>
+            {% else %}
+                <label for="pfp">Sube una foto de perfil o cámbiala</label>
+                <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif">
+                <button class="btn btn-secondary" onclick="showProfile()">Cancelar</button>
+            {% endif %}
+        </div>
+        
+        <div id="upload-picture-container" class="tab-content {% if usuario.foto_perfil is None %}active{% endif %}" style="display: none;">
+            <label for="pfp">Sube una foto de perfil o cámbiala</label>
+            <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif">
+            <button class="btn btn-secondary" onclick="showProfile()">Cancelar</button>
+        </div>
+        
+        <script>
+        function showUpload() {
+            document.getElementById('profile-picture-container').style.display = 'none';
+            document.getElementById('upload-picture-container').style.display = 'block';
+        }
+        
+        function showProfile() {
+            document.getElementById('profile-picture-container').style.display = 'block';
+            document.getElementById('upload-picture-container').style.display = 'none';
+        }
+        
+        // Asegúrate de que el contenedor de carga esté oculto al principio
+        document.addEventListener("DOMContentLoaded", function() {
+            if (document.getElementById('upload-picture-container').style.display === '') {
+                document.getElementById('upload-picture-container').style.display = 'none';
+            }
+        });
+        </script>
+        
+        <style>
+        .hidden {
+            display: none;
+        }
+        </style>
+
+
+
+
+
 
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
@@ -29,7 +73,7 @@ Editar Perfil
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
         <label for="bio">Biografia</label>
-        <input type="text" class="nuevo" name="bio" value=" ">
+        <input type="text" class="nuevo" name="bio" value="{{ usuario.biografia }}">
 
         {% if usuario.miembro == True: %}
             <label for="edad">Edad:</label>
@@ -40,7 +84,7 @@ Editar Perfil
 
             <label for="categoria">Categoria: </label>
             <select name="categoria" class="nuevo" id="categoria">
-                <option value="sin_area">{{ proveedor.categoria }}</option>
+                <option value="{{ proveedor.categoria }}">{{ proveedor.categoria }}</option>
                 <option value="Editor de videos">Editor de videos</option>
                 <option value="Artista Digital">Artista Digital</option>
                 <option value="Productor músical">Productor músical</option>
@@ -54,31 +98,11 @@ Editar Perfil
         <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
-
+<!-- <script src="{{ url_for('static', filename='js/editar_perfil.js') }}"></script> -->
 
 
 {% endblock %}
 
-<!-- <option value="sin_area">proveedor.categoria }}</option> -->
-
-                <!-- <option value="Editor de videos}}">           Editor de videos}}</option>
-                <option value="diseño_grafico">  Diseño Gráfico</option>
-                <option value="audio">           Audio</option>
-                <option value="sitio_web">       Sitios Web</option> -->
-
-
-
-
 <!-- <script>
-    document.getElementById('editUserForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
 
-        // Aquí puedes agregar la lógica para enviar los datos al servidor
-        console.log('Usuario actualizado:', { username, email });
-
-        alert('Cambios guardados con éxito.');
-    });
 </script> -->
