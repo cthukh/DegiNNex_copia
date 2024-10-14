@@ -1,6 +1,53 @@
-body {
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* FONTS */
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.caveat-titulo {
+    font-family: "Caveat", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 10rem;
+    color: rgb(63, 3, 28);
+}
+
+/* BODY */
+
+.content {
+    margin: 0 auto;
     padding: 0;
+    background-color: rgb(255, 215, 230);
+}
+
+.intro {
+    text-align: center;
+    padding: 6rem;
+
+}
+
+.titulo{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.lema {
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+    font-size: 3rem;
+}
+
+.texto-bienvenida {
+    font-size: 2rem;
+    text-align: start;
 }
 
 /* main */
@@ -16,14 +63,14 @@ body {
     position: relative;
     background-size: cover;
     background-position: center;
-    color: rgb(248, 238, 229);
+    color: rgb(253, 215, 234);
     align-items: center;
     transition: color 0.4s ease;
     display: flex;
     flex-direction: row;
     margin: 30px;
     justify-content: space-between;
-    background: linear-gradient(to left, rgb(248, 225, 255), rgb(84, 4, 85));
+    background: linear-gradient(to left, rgb(255, 212, 229), rgb(105, 4, 40));
     border: 2px solid #000000;
     height: 320px;
     text-align: center;
@@ -37,32 +84,32 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative; /* Para el overlay */
+    position: relative; 
     z-index: 1;
 }
 
 .service .overlay {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    position: absolute; /* Posiciona el overlay */
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo negro semitransparente */
-    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(255, 220, 220);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     margin-left: 40%;
-    opacity: 0; /* Inicialmente oculto */
-    transition: opacity 0.6s ease; /* Transición suave */
-    z-index: 2; /* Asegura que el overlay esté por encima del contenido */
+    opacity: 0;
+    transition: opacity 0.6s ease; 
+    z-index: 2; 
 }
 
 .service:hover .overlay {
-    opacity: 10; /* Muestra el overlay al pasar el mouse */
+    opacity: 10;
 }
 
 .service-img {

@@ -12,7 +12,23 @@ Editar Perfil
 <div class="main">
     <h2>Editar Usuario</h2>
 
-    <form action="/perfil/me/editar" class="form_edit" method="POST" >
+    <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
+
+        <!--! problemas con la foto de perfil  -->
+        {% if usuario.foto_perfil %}
+            <div class="tab-content">
+                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{usuario.foto_perfil}}" class="profile-picture">
+                <button tipeclass="btn btn-primary">Editar foto de perfil</button>
+                <button class="btn btn-secondary">borrar foto de perfil</button>
+            </div>
+        {% elif usuario.foto_perfil is None %}
+            <div class="tab-content active">
+                <label for="pfp">Sube una foto de perfil o cambiala</label>
+                {{ usuario.foto_perfil}}
+                <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif" >
+            </div>
+        {% endif %}
+
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
 
@@ -22,44 +38,33 @@ Editar Perfil
         <label for="correo">Correo Electrónico:</label>
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
+        <label for="bio">Biografia</label>
+        <input type="text" class="nuevo" name="bio" value="{{ usuario.biografia }}">
+
         {% if usuario.miembro == True: %}
             <label for="edad">Edad:</label>
-            <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}">
+            <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}" required>
 
             <label for="telefono">Telefono:</label>
-            <input type="text" class="nuevo" name="telefono" value="{{ proveedor.telefono }}">
+            <input type="text" class="nuevo" name="telefono" value="{{ proveedor.telefono }}" required>
 
             <label for="categoria">Categoria: </label>
             <select name="categoria" class="nuevo" id="categoria">
-                <option value="sin_area">{{ proveedor.categoria }}</option>
-                <option value="Video">Video</option>
-                <option value="diseño_grafico">Diseño Gráfico</option>
-                <option value="audio">Audio</option>
-                <option value="sitio_web">Sitios Web</option>
+                <option value="{{ proveedor.categoria }}">{{ proveedor.categoria }}</option>
+                <option value="Editor de videos">Editor de videos</option>
+                <option value="Artista Digital">Artista Digital</option>
+                <option value="Productor músical">Productor músical</option>
+                <option value="Desarrollador Web">Desarrollador Web</option>
+
+
             </select>
         {% endif %}
 
         <button type="submit" id="subir" class="btn btn-primary">Guardar Cambios</button>
-        <button type="cancel" id="cancel" class="btn btn-danger">Cancelar</button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
 
 
 
 {% endblock %}
-
-
-
-<!-- <script>
-    document.getElementById('editUserForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-
-        // Aquí puedes agregar la lógica para enviar los datos al servidor
-        console.log('Usuario actualizado:', { username, email });
-
-        alert('Cambios guardados con éxito.');
-    });
-</script> -->

@@ -10,9 +10,11 @@ class Usuario(db.Model, UserMixin):
     apellido       = db.Column(db.String(45),  nullable=False)
     correo         = db.Column(db.String(45),  nullable=False, unique=True)
     clave          = db.Column(db.String(255), nullable=False)
+    biografia      = db.Column(db.String(255), nullable=True)
+    foto_perfil    = db.Column(db.String(200), nullable=True)
     miembro        = db.Column(db.Boolean(),   nullable=False, default=False)
     created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
-
+    
     proveedor      = db.relationship('Proveedor', back_populates='usuario', uselist=False)
 
     def establecer_clave(self, clave):
@@ -58,4 +60,8 @@ class Proveedor(db.Model):
         for producto in productos:
             todos_los_productos.append(producto)
         print("Items de consulta:",todos_los_productos)
-        return(todos_los_productos)
+        return(todos_los_productos) # Una lista de usuarios en la categoria
+
+    @staticmethod
+    def buscar_por_id(id):
+        return Proveedor.query.get(id)
