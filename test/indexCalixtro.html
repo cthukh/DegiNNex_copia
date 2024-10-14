@@ -1,72 +1,49 @@
+{% extends 'base_template.html' %}
 
+{% block title %}
+Perfiles en sección video
+{% endblock %}
 
-<!-- ! Esto no es index. Es pagina de producto -->
+{% block link %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cat_video.css') }}">
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <link rel="stylesheet" href="indexCalixtro.css">
-    
-</head>
-<body>
-    <div class="product-page">
-        <div class="product-gallery">
-            <img src="drill.jpg" alt="Perfil" class="main-image">
-            <div class="thumbnail-gallery">
-                <video src="/media/banner-pro-vid.mp4" alt="video referencia" class="thumbnail">
-                <img src="thumbnail2.jpg" alt="foto en scroll 2" class="thumbnail">
-                <img src="thumbnail3.jpg" alt="foto en scroll 3" class="thumbnail">
-                <img src="thumbnail4.jpg" alt="foto en scroll 4" class="thumbnail">
-            </div>
-        </div>
-        
-        <div class="product-details">
-            <h1>nombre de usuario</h1>
-            <div class="rating">
-                <p>Calificación: </p>
-                <div id="stars" class="stars">
-                    <span class="star" data-value="1">⭐</span>
-                    <span class="star" data-value="2">⭐</span>
-                    <span class="star" data-value="3">⭐</span>
-                    <span class="star" data-value="4">⭐</span>
-                    <span class="star" data-value="5">⭐</span>
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center" id="perfiles">
+
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto mt-3" alt="Foto de Perfil" style="width: 100px;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Juan Pérez</h5>
+                        <p class="card-text font-weight-bold">Desarrollador Web</p>
+                        <p class="card-description">
+                            Juan es un desarrollador web con más de 5 años de experiencia en la creación de aplicaciones web y sitios responsivos.
+                        </p>
+                    </div>
+                    <!-- Redes Sociales -->
+                    <div class="social-icons text-center mb-3">
+                        <a href="#" class="mx-2"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="mx-2"><i class="fab fa-github"></i></a>
+                        <a href="#" class="mx-2"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <!-- Valoraciones -->
+                    <div class="rating text-center mb-3">
+                        &#9733; &#9733; &#9733; &#9733; &#9734; <!-- 4 estrellas -->
+                        <p>Basado en 15 opiniones</p>
+                    </div>
+                    <!-- Especialidades -->
+                    <div class="skills text-center mb-3">
+                        <span class="badge badge-primary">JavaScript</span>
+                        <span class="badge badge-secondary">Python</span>
+                        <span class="badge badge-success">Diseño Gráfico</span>
+                    </div>
+                    </div>
                 </div>
-                <p id="selected-rating">(Sin calificar)</p>
             </div>
 
-            <div class="actions">
-                <button class="buy-now">Hablar</button>
-                <button class="add-to-cart">Guardar</button>
-            </div>
-            <div class="description">
-                <h3>habilidades</h3>
-                <ul>
-                    <li>Voltaje: 100V/240V</li>
-                    <li>Es angular</li>
-                    <li>Viene con caja de plástico</li>
-                    <li>Cumple función destornillador</li>
-                    <li>Velocidad máxima de rotación: 2550rpm</li>
-                    <li>Con batería incluida</li>
-                    <li>Incluye: brocas</li>
-                </ul>
-            </div>
         </div>
     </div>
-
-    <!-- Comments Section -->
-    <div class="comment-section">
-        <h2>Comentarios</h2>
-        <form id="comment-form">
-            <textarea id="comment" placeholder="Escribe tu comentario aquí" required></textarea>
-            <button type="submit">Enviar comentario</button>
-        </form>
-        <div id="comments-list"></div>
-    </div>
-
-    <script src="indexCalixtro.js"></script>
-    <footer> amonaci chupalo.icn</footer>
-</body>
-</html>
+{% endblock %}

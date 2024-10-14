@@ -17,47 +17,26 @@ Editar Perfil
         
         <div id="profile-picture-container" class="tab-content {% if usuario.foto_perfil %}active{% else %}hidden{% endif %}">
             {% if usuario.foto_perfil %}
-                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{usuario.foto_perfil}}" class="profile-picture">
-                <button class="btn btn-primary" onclick="showUpload()">Editar foto de perfil</button>
-                <button class="btn btn-secondary">Borrar foto de perfil</button>
+                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture">
+                <a href="#" class="btn btn-secondary" onclick="showUpload()">Cambiar foto de perfil</a>
             {% else %}
                 <label for="pfp">Sube una foto de perfil o cámbiala</label>
                 <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif">
-                <button class="btn btn-secondary" onclick="showProfile()">Cancelar</button>
+                <a href="#" class="btn btn-secondary" onclick="showProfile()">Cancelar</a>
             {% endif %}
         </div>
         
-        <div id="upload-picture-container" class="tab-content {% if usuario.foto_perfil is None %}active{% endif %}" style="display: none;">
+        <div id="upload-picture-container" class="tab-content {% if usuario.foto_perfil is not defined or usuario.foto_perfil == '' %}active{% else %}hidden{% endif %}" style="display: none;">
             <label for="pfp">Sube una foto de perfil o cámbiala</label>
             <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif">
-            <button class="btn btn-secondary" onclick="showProfile()">Cancelar</button>
+            <a href="#" class="btn btn-secondary" onclick="showProfile()">Cancelar</a>
         </div>
-        
-        <script>
-        function showUpload() {
-            document.getElementById('profile-picture-container').style.display = 'none';
-            document.getElementById('upload-picture-container').style.display = 'block';
-        }
-        
-        function showProfile() {
-            document.getElementById('profile-picture-container').style.display = 'block';
-            document.getElementById('upload-picture-container').style.display = 'none';
-        }
-        
-        // Asegúrate de que el contenedor de carga esté oculto al principio
-        document.addEventListener("DOMContentLoaded", function() {
-            if (document.getElementById('upload-picture-container').style.display === '') {
-                document.getElementById('upload-picture-container').style.display = 'none';
-            }
-        });
-        </script>
-        
+
         <style>
         .hidden {
             display: none;
         }
         </style>
-
 
 
 
@@ -98,7 +77,7 @@ Editar Perfil
         <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
-<!-- <script src="{{ url_for('static', filename='js/editar_perfil.js') }}"></script> -->
+<script src="{{ url_for('static', filename='js/editar_perfil.js') }}"></script>
 
 
 {% endblock %}

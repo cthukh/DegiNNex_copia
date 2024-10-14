@@ -162,6 +162,7 @@ def editar_perfil():
         return render_template('editar_usuario.html', usuario=current_user, proveedor=proveedor)
 
     if request.method == 'POST':
+        print('method POST')
         error = False
         idq      = current_user.id
         nombre   = request.form.get('nombre')
@@ -169,15 +170,22 @@ def editar_perfil():
         correo   = request.form.get('correo')
         bio      = request.form.get('bio')
         file = request.files['photo']
+        print('parte: 1 error aqui')
         
         if file.filename == '':
-            return flash('No selected file')
+            return print('no hay archivo')
+        
+        print('parte: 2 error aqui')
+        
         if file:
+            print('llega el archivo')
             filename  = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
             print(file_path)
-            ControladorUsuarios.op_fotos(idq,file_path)
+            print('parte: 3 error aqui')
+            return ControladorUsuarios.op_fotos(idq,file_path)
+
 
         print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
@@ -186,8 +194,9 @@ def editar_perfil():
             edad        = request.form.get('edad')
             telefono    = request.form.get('telefono')
             categoria   = request.form.get('categoria')
-            print("es miembro y esta editando")
-            resultadov2 = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
+            print('parte: 4 error aqui')
+            resultado = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
+            return resultado
 
         if 'error' in resultado:
             # si hay error en resultado, devuelve un diccionario con el error.
@@ -197,7 +206,7 @@ def editar_perfil():
             flash("Perfil actualizado con éxito")
             print("Perfil actualizado con éxito")
 
-        return redirect('/perfil/me')  # Redirige a la ruta de acción, si se usa POST
+        return redirect('/perfil/me') # Redirige a la ruta de acción, si se usa POST
 
 ####################  CONVERTIRSE EN PROVEEDOR.  ####################
 @app.route('/perfil/me/verificar')
