@@ -172,9 +172,10 @@ def editar_perfil():
         file = request.files['photo']
         print('parte: 1 error aqui')
         
-        if file.filename == '':
-            return print('no hay archivo')
-        
+        if file.filename == '' and current_user.foto_perfil:    #! el error esta aqui
+            filesave = current_user.foto_perfil
+            flash('No hay archivo seleccionado')
+            print('No hay archivo seleccionado')
         print('parte: 2 error aqui')
         
         if file:
@@ -185,7 +186,6 @@ def editar_perfil():
             print(file_path)
             print('parte: 3 error aqui')
             return ControladorUsuarios.op_fotos(idq,file_path)
-
 
         print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
@@ -216,7 +216,7 @@ def crear_miembro():
     return render_template('validar_proveedor.html', form_validar=form_validar)
 
 
-#************************************************** ACCIONES USUARIO **************************************************
+#************************************************** ACCIONES. **************************************************
 ####################  CREAR LA TABLA PROVEEDORES.  ####################
 @app.route('/validar', methods=["POST", "GET"])
 @login_required
