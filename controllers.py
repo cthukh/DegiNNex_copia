@@ -58,13 +58,18 @@ class ControladorUsuarios:
         usuario.foto_perfil = f'uploads/{os.path.basename(file_path)}'
         
         db.session.commit()
-        return {"usuario" : usuario}
+        return True
 
     @staticmethod
     def editar_miembro(id,edad,telefono,categoria):
         proveedor = Proveedor.query.filter_by(usuario_id = id).first()
+        print('punto de control editar categoria')
         if not proveedor:
-            return ("no existe proveedor")
+            error = {
+                'error' : True,
+                'mensaje' : f"no existe proveedor con id: {id}"
+            }
+            return error
 
         proveedor.edad       = edad
         proveedor.telefono   = telefono

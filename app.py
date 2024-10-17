@@ -133,10 +133,10 @@ def index():
 
 #################### Selección de categorias ####################
 # Categorias hasta ahora: videos, diseño grafico, audio, sitios web
-@app.route('/seccion/<string:cat>')
+@app.route('/secciones/<string:cat>')
 def manejo_categorias(cat):
     proveedores = Proveedor.obtener_por_categoria(cat)
-    return render_template('unique_cat.html', proveedores=proveedores)
+    return render_template('unique_cat.html', proveedores=proveedores, cat=cat)
 
 #************************************************** RUTAS DE PERFIL. **************************************************
 
@@ -170,24 +170,7 @@ def editar_perfil():
         correo   = request.form.get('correo')
         bio      = request.form.get('bio')
         file = request.files['photo']
-        print('parte: 1 error aqui')
         
-        if file.filename == '' and current_user.foto_perfil:    #! el error esta aqui
-            filesave = current_user.foto_perfil
-            flash('No hay archivo seleccionado')
-            print('No hay archivo seleccionado')
-        print('parte: 2 error aqui')
-        
-        if file:
-            print('llega el archivo')
-            filename  = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            print(file_path)
-            print('parte: 3 error aqui')
-            return ControladorUsuarios.op_fotos(idq,file_path)
-
-        print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
 
         if current_user.miembro == True:
@@ -195,17 +178,36 @@ def editar_perfil():
             telefono    = request.form.get('telefono')
             categoria   = request.form.get('categoria')
             print('parte: 4 error aqui')
-            resultado = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
-            return resultado
+            resultadov2 = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
+            print('resultado da error')
 
         if 'error' in resultado:
+            print('hay error en error')
             # si hay error en resultado, devuelve un diccionario con el error.
             flash (resultado['mensaje'])
             print (resultado['mensaje'])
         else:
-            flash("Perfil actualizado con éxito")
             print("Perfil actualizado con éxito")
 
+        print(file.filename)
+        print("nombre de archivo")
+        print('parte: 1 error aqui')
+        if not file:
+            print('no hay file')
+            file == current_user.foto_perfil
+            return redirect("/perfil/me")
+
+        if file:
+            print('llega el archivo')
+            filename  = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            print(file_path)
+            print('parte: 3 error aqui')
+            if ControladorUsuarios.op_fotos(idq,file_path):
+                return redirect("/perfil/me")
+
+        print("esta editando el usuario")
         return redirect('/perfil/me') # Redirige a la ruta de acción, si se usa POST
 
 ####################  CONVERTIRSE EN PROVEEDOR.  ####################
