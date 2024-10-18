@@ -26,10 +26,10 @@ class ControladorUsuarios:
         proveedor.categoria   = categoria
         usuario.miembro       = True
         proveedor.usuario_id  = idu
-
         db.session.add(proveedor)
+        
         db.session.commit()
-        return proveedor
+        return {'proveedor' : proveedor}
 
 ########################################  EDITAR  ########################################
     @staticmethod
@@ -38,19 +38,11 @@ class ControladorUsuarios:
         usuario = Usuario.query.get(id)
 
         if not usuario:
-            resultado = {
-                'error' : True,
-                'mensaje' : f"El usuario {id} no existe en la db"
-            }
-            return resultado
+            return f"El usuario {id} no existe en la db"
 
         # Verifica si el correo existe en la db
         if Usuario.query.filter_by(correo=correo).first() and correo != usuario.correo:
-            resultado = {
-                'error' : True,
-                'mensaje' : f"El correo {correo} ya esta en uso"
-            }
-            return resultado
+            return f"El correo {correo} ya esta en uso"
     
         usuario.nombre      = nombre
         usuario.apellido    = apellido
@@ -58,26 +50,32 @@ class ControladorUsuarios:
         usuario.biografia   = bio
     
         db.session.commit()
-        return {'usuario' : usuario} # Retorna el usuario dentro de un diccionario
+        return {"usuario" : usuario} # Retorna el usuario dentro de un diccionario
 
     @staticmethod
     def op_fotos(id,file_path):
         usuario = Usuario.query.get(id)
         usuario.foto_perfil = f'uploads/{os.path.basename(file_path)}'
-
+        
         db.session.commit()
-        return {'usuario' : usuario}
+        return True
 
     @staticmethod
     def editar_miembro(id,edad,telefono,categoria):
         proveedor = Proveedor.query.filter_by(usuario_id = id).first()
-        print(proveedor)
+        print('punto de control editar categoria')
+        if not proveedor:
+            error = {
+                'error' : True,
+                'mensaje' : f"no existe proveedor con id: {id}"
+            }
+            return error
+
         proveedor.edad       = edad
         proveedor.telefono   = telefono
         proveedor.categoria  = categoria
-        
         db.session.commit()
-        return {'usuario' : proveedor}
+        return {"proveedor" : proveedor}
 
 ########################################  BORRAR  ########################################
     @staticmethod
@@ -86,11 +84,11 @@ class ControladorUsuarios:
         usuario = Usuario.query.get(id)
         emp = Proveedor.query.filter_by(usuario_id = id).first()
         if not usuario:
-            resultado = {
+            error = {
                 'error' : True,
                 'mensaje' : f"El usuario {id} no existe en la db"
             }
-            return resultado
+            return error
         print(usuario)
         if usuario:
             db.session.delete(usuario)
@@ -105,14 +103,14 @@ class ControladorUsuarios:
         emp = Proveedor.query.filter_by(usuario_id = id).first()
         print(f"el usuario xd{emp}" )
         if not emp:
-            resultado = {
+            error = {
                 'error' : True,
                 'mensaje' : f"El usuario {id} no existe en la db"
             }
-            return resultado
+            return error
 
         if emp:
             emp.usuario.miembro = False
             db.session.delete(emp)
             db.session.commit()
-            return{'mensaje' : "se elimino la cuenta profesional"}
+            return{'mensaje' : "se elimino la conexión a cuenta profesional"}
