@@ -133,10 +133,10 @@ def index():
 
 #################### Selección de categorias ####################
 # Categorias hasta ahora: videos, diseño grafico, audio, sitios web
-@app.route('/secciones/<string:cat>')
+@app.route('/seccion/<string:cat>')
 def manejo_categorias(cat):
     proveedores = Proveedor.obtener_por_categoria(cat)
-    return render_template('unique_cat.html', proveedores=proveedores, cat=cat)
+    return render_template('unique_cat.html', proveedores=proveedores)
 
 #************************************************** RUTAS DE PERFIL. **************************************************
 
@@ -162,7 +162,6 @@ def editar_perfil():
         return render_template('editar_usuario.html', usuario=current_user, proveedor=proveedor)
 
     if request.method == 'POST':
-        print('method POST')
         error = False
         idq      = current_user.id
         nombre   = request.form.get('nombre')
@@ -171,44 +170,34 @@ def editar_perfil():
         bio      = request.form.get('bio')
         file = request.files['photo']
         
+        if file.filename == '':
+            return flash('No selected file')
+        if file:
+            filename  = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            print(file_path)
+            ControladorUsuarios.op_fotos(idq,file_path)
+
+        print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
 
         if current_user.miembro == True:
             edad        = request.form.get('edad')
             telefono    = request.form.get('telefono')
             categoria   = request.form.get('categoria')
-            print('parte: 4 error aqui')
+            print("es miembro y esta editando")
             resultadov2 = ControladorUsuarios.editar_miembro(idq,edad,telefono,categoria)
-            print('resultado da error')
 
         if 'error' in resultado:
-            print('hay error en error')
             # si hay error en resultado, devuelve un diccionario con el error.
             flash (resultado['mensaje'])
             print (resultado['mensaje'])
         else:
+            flash("Perfil actualizado con éxito")
             print("Perfil actualizado con éxito")
 
-        print(file.filename)
-        print("nombre de archivo")
-        print('parte: 1 error aqui')
-        if not file:
-            print('no hay file')
-            file == current_user.foto_perfil
-            return redirect("/perfil/me")
-
-        if file:
-            print('llega el archivo')
-            filename  = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            print(file_path)
-            print('parte: 3 error aqui')
-            if ControladorUsuarios.op_fotos(idq,file_path):
-                return redirect("/perfil/me")
-
-        print("esta editando el usuario")
-        return redirect('/perfil/me') # Redirige a la ruta de acción, si se usa POST
+        return redirect('/perfil/me')  # Redirige a la ruta de acción, si se usa POST
 
 ####################  CONVERTIRSE EN PROVEEDOR.  ####################
 @app.route('/perfil/me/verificar')
@@ -218,7 +207,7 @@ def crear_miembro():
     return render_template('validar_proveedor.html', form_validar=form_validar)
 
 
-#************************************************** ACCIONES. **************************************************
+#************************************************** ACCIONES USUARIO **************************************************
 ####################  CREAR LA TABLA PROVEEDORES.  ####################
 @app.route('/validar', methods=["POST", "GET"])
 @login_required
