@@ -13,6 +13,7 @@ Editar Perfil
     <h2>Editar Usuario</h2>
 
     <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
+
         {% if usuario.foto_perfil %}
         <style>#subir_foto{display: none;}</style>
         <div id="mostar_foto">
@@ -66,11 +67,9 @@ Editar Perfil
         <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
+
 <script src="{{ url_for('static', filename='js/editar_perfil.js') }}"></script>
 
 
+
 {% endblock %}
-
-<!-- <script>
-
-</script> -->

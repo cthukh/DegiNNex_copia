@@ -1,7 +1,12 @@
-- Crear conexion entre base de datos para almacenar usuarios y proveedores.
-    - creo que mejor una nueva fila nulleable que almacene tipo de usuario.
+# DegiNNex
 
-- Cambiar barra de navegación. (a medias)
 
-- De la pagina de perfil crear apartado para completar perfil
-    - que pueda elegir desde aqui si ser proveedor o quedar como cliente.
+### Esta pagina web esta pensada para que personas con el conocimiento en áreas de:
+
+Creacion y edicion de:
+- Videos
+- Audio
+- Diseño Grafico
+- Paginas web
+### Puedan ofrecer sus servicios y que el publico pueda contactar con ellos.
+### La tienda cuenta con dos lados, Cliente y Proveedor
