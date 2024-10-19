@@ -21,12 +21,12 @@
                 {% if usuario.foto_perfil: %}
                     <img src="{{ url_for('static', filename=usuario.foto_perfil) }}"  alt="{{usuario.foto_perfil}}" class="profile-picture">
                 {% else: %}
-                    <img src="https://via.placeholder.com/150" alt="sin foto de perfil" class="profile-picture">
+                    <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin foto de perfil" class="profile-picture">
                 {% endif %}
                 <div class="user-details">
                     <h1>{{ usuario.nombre }} {{ usuario.apellido }}</h1>
                     {% if usuario.is_a_proveer == True %}
-                        <p style="color:green;">Cuenta Profesional Activa</p>
+                        <p style="color:green; margin-top:13px;">Cuenta Profesional Activa</p>
                         <p style="color: rgb(141, 0, 0);">{{ usuario.proveedor.categoria }}</p>
                     {% elif usuario.is_a_proveer == False %}
                         <p style="color:gray;">Cliente</p>

@@ -46,6 +46,15 @@ body a {
     margin: 0 15px;
 }
 
+#punt {
+    background-color: green;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%; 
+    align-self: center;
+    margin-left: 5px;
+}
+
 #navbar ul li a {
     font-size: 20px;
     color: #ffffff;
@@ -53,7 +62,7 @@ body a {
 }
 
 #navbar ul li a:hover {
-    color: #0b8074;
+    color: #cd004e;
     text-decoration: dashed;
 }
 

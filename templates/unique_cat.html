@@ -10,17 +10,20 @@ Perfiles en sección video
 
 {% block content %}
 <div class="content">
-    <div class="main-post"></div>
-    
+    <!-- **********  publicaciones  ********** -->
+    <div class="main-post">
+
+    </div>
+    <!-- **********  personas  ********** -->
     <div class="main-personas">
     {% for proveedor in proveedores %}
         <section id="perfiles">
             <a href="/perfil/view/{{proveedor.id}}">
                 <div class="profile" onclick="showProfile('perfil1')">
                     {% if not proveedor.usuario.foto_perfil %}
-                    <img src="{{ url_for('static', filename='img/default_profile-coco.png') }}" alt="sin_foto_de_perfil" class="profile-picture">
+                    <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin_foto_de_perfil" width="160px" class="profile-picture">
                     {% else %}
-                    <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}" alt="Foto_de_perfil" width="200px" class="profile-picture">
+                    <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}" alt="Foto_de_perfil" width="160px" class="profile-picture">
                     {% endif %}
                     <div class="summary">
                         <h3>{{ proveedor.usuario.nombre }} {{ proveedor.usuario.apellido }}</h3>
@@ -31,9 +34,9 @@ Perfiles en sección video
             </a>
         </section>
     {% endfor %}
-    <!-- {% if not proveedores %}
+    {% if not proveedores %}
         <marquee behavior="alternate" direction=""><img src="{{url_for('static', filename='img/rolling ame.gif')}}" alt="ame_rolling" width="100px">aún nada...</marquee>
-    {% endif %} -->
+    {% endif %}
     </div>
 </div>
 {% endblock %}

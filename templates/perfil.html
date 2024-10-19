@@ -19,7 +19,7 @@
         <div class="profile-sidebar">
             <div class="profile-header">
                 {% if not proveedor.usuario.foto_perfil %}
-                <img src="{{ url_for('static', filename='img/default_profile-coco.png') }}" alt="sin_foto_de_perfil" class="profile-picture">
+                <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin_foto_de_perfil" class="profile-picture">
                 {% else %}
                 <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}" alt="Foto_de_perfil" class="profile-picture">
                 {% endif %}

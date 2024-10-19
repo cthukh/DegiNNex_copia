@@ -13,15 +13,19 @@
 
 {% block content %}
 <div class="main">
-    <div class="container">
+    <div class="container col-6">
         <div class="row">
             <!-- Registro -->
-            <div id="registrarse" class="col-6">
-                <h1>Registro de usuarios</h1>
-
+            <div id="registrarse" class="col-12">
+                <center><h1>Bienvenido a DigiLapp</h1></center>
+                <h4>Crea una cuenta</h4>
+                <style>
+                    #ingresar {
+                        display: none;
+                    }
+                </style>
                 <form action="/register" method="POST">
                     {{ form_registro.hidden_tag() }}
-
                     <div class="mb-3">
                         {{ form_registro.nombre.label }}
                         {{ form_registro.nombre(class="form-control") }}
@@ -58,14 +62,16 @@
                         {{ form_registro.confirmar_clave.label }}
                         {{ form_registro.confirmar_clave(class="form-control") }}
                     </div>
+                    <p>¿Ya tienes una cuenta? <a href="#" id="btn_login">ingresar</a></p>
                     {{ form_registro.submit(class="btn btn-primary") }}
+                    
                 </form>
             </div>
 
             <!-- Acceso -->
-            <div id="ingresar" class="col-6">
-                <h1>Acceso de usuarios</h1>
-
+            <div id="ingresar" class="col-12">
+                <center><h1>Hola, bienvenido</h1></center>
+                <h4>Acceso de usuarios</h4>
                 <form action="/login" method="POST">
                     {{ form_acceso.hidden_tag() }}
 
@@ -78,7 +84,7 @@
                         {{ form_acceso.clave.label }}
                         {{ form_acceso.clave(class="form-control") }}
                     </div>
-
+                    <p>¿Aún no tienes cuenta? <a href="#" id="btn_reg">registrarse</a></p>
                     {{ form_acceso.submit(class="btn btn-primary") }}
                 </form>
                 {% with messages = get_flashed_messages() %}
@@ -90,7 +96,6 @@
                         </ul>
                     {% endif %}
                 {% endwith %}
-
             </div>
         </div>
     </div>
