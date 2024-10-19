@@ -1,6 +1,5 @@
 from app import db
 from datetime import datetime
-from dataclasses import dataclass
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -18,14 +17,6 @@ class Usuario(db.Model, UserMixin):
     created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
     
     proveedor      = db.relationship('Proveedor', back_populates='usuario', uselist=False)
-    
-    def serialize(self):
-        return {"id": self.id,
-                "nombre": self.nombre,
-                "apellido": self.apellido,
-                "correo": self.correo,
-                "clave": self.nombre,
-                }
 
     def establecer_clave(self, clave):
         self.clave = generate_password_hash(clave)
@@ -76,9 +67,3 @@ class Proveedor(db.Model):
     @staticmethod
     def buscar_por_id(id):
         return Proveedor.query.get(id)
-   
-######################################## tabla publicaciones ########################################
-# class Publicacion(db.Model):
-#     __tablename__ = "publicaciones"
-#     id            = db.Column(db.Integer,primary_key=True)
-#     texto         = db.Column(db.Text())  
