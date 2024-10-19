@@ -1,0 +1,34 @@
+<!-- sobre nosotros | about -->
+
+{% extends 'base_template.html' %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="texto-bienvenida">
+        <p>
+            Bienvenido a nuestra plataforma, donde los nuevos talentos encuentran su lugar en el mundo del trabajo remoto. 
+            Aquí, la comunidad de apasionados por la edición de videos, diseño gráfico y más, 
+            pueden mostrar su potencial y habilidades, sin importar su nivel de experiencia.
+            </br>
+            </br>
+            Explora perfiles creativos y auténticos de individuos listos para dar lo mejor de sí en proyectos emocionantes. 
+            Desde editores que dan vida a tus ideas hasta desarrolladores web que crean sitios innovadores, 
+            nuestro espacio es una estacion para creación de experiencia.
+            </br>
+            </br>
+            ¿Buscas un profesional para un proyecto específico? Publica tu necesidad y deja que los talentos se acerquen a ti. 
+            Imagina solicitar un video que necesitas editar y recibir respuestas de la comunidad dispuesta a colaborar. 
+            ¡Puede ser así de simple!
+            </br>
+            </br>
+            Únete a nuestra comunidad y transforma la manera en que encuentras y ofreces oportunidades en el mundo digital. 
+            Aquí, el potencial se encuentra con la oportunidad, y cada proyecto es una nueva historia que contar. 
+            ¡Inscríbete y comienza a conectar hoy mismo!
+        </p>
+    </div>
+</div>
+{% endblock %}

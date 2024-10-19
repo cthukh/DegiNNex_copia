@@ -17,6 +17,7 @@
     <link rel="icon" href="/static/img/1728611778518.png" type="image/png">
     <link rel="stylesheet" href="{{url_for('static', filename='css/styleHeader.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/styleFooter.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style_bt.css')}}">
     {% block link %}
     {% endblock %}
     <style>body {background-color: #f9f9f9;}</style>
@@ -33,8 +34,8 @@
         </a>
         <nav id="navbar">
             <ul>
-                <li><a href="/inicio#categorias">Categoria</a></li>
-                <li><a href="/perfil/me">Perfil</a></li>
+                <li><a href="/inicio#categorias">Categorías</a></li>
+                <li><a href="/perfil/me">Mi perfil</a></li>
                 <li><a href="#about">Acerca de</a></li>
                 <!-- <li><a href="#">Contacto</a></li> -->
             </ul>
@@ -42,16 +43,17 @@
     </header>
 
     <!-- ******************************  MAIN  ****************************** -->
+    <div class="content">
     {% block content %}
     {% endblock %}
-
+    </div>
     <!-- ******************************  FOOTER  ****************************** -->
     <footer>
         <!-- Sobre nosotros -->
         <section id="about">
             <h2>Acerca de Nosotros</h2>
-            <p>Somos una plataforma dedicada a conectar gente creativos con clientes que lo necesitan.</p>
-            <a href="#">Saber más</a>
+            <p>Somos una plataforma dedicada a conectar futuros talentos con clientes que necesitan sus servicios.</p>
+            <a href="/about">Saber más</a>
         </section>
         <p><strong>&copy; 2024 DigLapp, Waren's Corporation </strong></p>
     </footer>

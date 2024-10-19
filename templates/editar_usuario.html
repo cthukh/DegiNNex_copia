@@ -13,22 +13,20 @@ Editar Perfil
     <h2>Editar Usuario</h2>
 
     <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
-
-        <!--! problemas con la foto de perfil  -->
         {% if usuario.foto_perfil %}
-            <div class="tab-content">
-                <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{usuario.foto_perfil}}" class="profile-picture">
-                <button tipeclass="btn btn-primary">Editar foto de perfil</button>
-                <button class="btn btn-secondary">borrar foto de perfil</button>
-            </div>
-        {% elif usuario.foto_perfil is None %}
-            <div class="tab-content active">
-                <label for="pfp">Sube una foto de perfil o cambiala</label>
-                {{ usuario.foto_perfil}}
-                <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif" >
-            </div>
+        <style>#subir_foto{display: none;}</style>
+        <div id="mostar_foto">
+            <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture">
+            <a href="#" id="cambiar_div" class="btn btn-secondary">Cambiar foto de perfil</a>
+        </div>
         {% endif %}
 
+
+        <div id="subir_foto">
+        <label for="pfp">Sube una foto</label>
+        <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif">
+        </div>
+        
         <label for="nombre">Nombre:</label>
         <input type="text" class="nuevo" name="nombre" value="{{ usuario.nombre }}" required>
 
@@ -39,9 +37,13 @@ Editar Perfil
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
         <label for="bio">Biografia</label>
+        {% if not usuario.biografia %}
+        <input type="text" class="nuevo" name="bio" placeholder="cuentanos sobre ti">
+        {% elif usuario.biografia: %}
         <input type="text" class="nuevo" name="bio" value="{{ usuario.biografia }}">
+        {% endif %}
 
-        {% if usuario.miembro == True: %}
+        {% if usuario.is_a_proveer == True: %}
             <label for="edad">Edad:</label>
             <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}" required>
 
@@ -64,7 +66,7 @@ Editar Perfil
         <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
-
+<script src="{{ url_for('static', filename='js/editar_perfil.js') }}"></script>
 
 
 {% endblock %}

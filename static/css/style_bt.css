@@ -1,13 +1,14 @@
 
-/* Estilo unico de barra de navegación */
+/** HEADER **/
 
 header {
     position: relative;
-    /* background: linear-gradient(to bottom, #000000, #0a2c2c); */
+    background: linear-gradient(to bottom, #000000, #300110);
     background-color: black;
     display: flex;
     justify-content: space-between;
-    height: 100px;
+    align-items: center;
+    height: 120px;
 }
 
 body a {
@@ -54,4 +55,22 @@ body a {
 #navbar ul li a:hover {
     color: #0b8074;
     text-decoration: dashed;
+}
+
+/** FOOTER **/
+
+footer {
+    background: linear-gradient(to top, #000000, #300110);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    position: relative;
+    bottom: 0;
+}
+footer p {
+    margin-left: 30px;
+    margin-right: 30px;
 }

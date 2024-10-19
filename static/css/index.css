@@ -22,7 +22,7 @@
 .content {
     margin: 0 auto;
     padding: 0;
-    background-color: rgb(255, 215, 230);
+    background-color: rgb(250, 242, 244);
 }
 
 .intro {
@@ -41,13 +41,7 @@
 
 .lema {
     margin-top: 3rem;
-    margin-bottom: 4rem;
     font-size: 3rem;
-}
-
-.texto-bienvenida {
-    font-size: 2rem;
-    text-align: start;
 }
 
 /* main */
