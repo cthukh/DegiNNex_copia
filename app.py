@@ -55,17 +55,15 @@ def add_header(response):
 # Verifica si el usuario ya está autenticado. Si lo está, redirige a la página de inicio.
 # Si no, muestra los formularios de registro y acceso.
 @app.route("/")
-def auth(form_registro=None, form_acceso=None):
+def auth(form_registro=None, form_acceso=None,):
     if current_user.is_authenticated:
         return redirect("/inicio")
 
     if form_registro == None:
         form_registro = FormularioRegistro()
-        
-    elif form_registro:
-        return redirect("/inicio")
 
     if form_acceso == None:
+        print(login)
         form_acceso = FormularioAcceso()
     return render_template("auth.html", form_registro=form_registro, form_acceso=form_acceso)
 
@@ -80,7 +78,7 @@ def register():
     # Comprobar si el correo ya está registrado; Si no, se crea el usuario.
     if form.validate_on_submit():
         print("form valido")
-        flash("Form valido")
+        flash("Cuenta creada. Ahora ingresa.")
         nombre   = form.nombre.data
         apellido = form.apellido.data
         correo   = form.correo.data
@@ -98,7 +96,7 @@ def register():
             # Utilización de un controlador entre Vista y Modelo.
             ControladorUsuarios().crear_usuario(nombre, apellido, correo, clave)
             # Generamos una instancia de datos.
-            return redirect("/inicio")
+            return redirect("/")
     else:
         print("form invalido")
         flash("Form invalido")

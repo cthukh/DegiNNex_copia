@@ -15,88 +15,92 @@
 <div class="main">
     <div class="container col-6">
         <div class="row">
+
             <!-- Registro -->
-            <div id="registrarse" class="col-12">
-                <center><h1>Bienvenido a DigiLapp</h1></center>
-                <h4>Crea una cuenta</h4>
-                <style>
-                    #ingresar {
-                        display: none;
-                    }
-                </style>
-                <form action="/register" method="POST">
-                    {{ form_registro.hidden_tag() }}
-                    <div class="mb-3">
-                        {{ form_registro.nombre.label }}
-                        {{ form_registro.nombre(class="form-control") }}
-                        {% for error in form_registro.nombre.errors %}
-                        <span style="color: red;">{{ error }}</span>
-                        {% endfor %}
-                    </div>
+            <section id="register">
+                <div id="registrarse" class="col-12">
+                    <center><h1>Bienvenido a DigiLapp</h1></center>
+                    <h4>Crea una cuenta</h4>
+                    <form action="/register" method="POST">
+                        {{ form_registro.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form_registro.nombre.label }}
+                            {{ form_registro.nombre(class="form-control") }}
+                            {% for error in form_registro.nombre.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
 
-                    <div class="mb-3">
-                        {{ form_registro.apellido.label }}
-                        {{ form_registro.apellido(class='form-control') }}
-                        {% for error in form_registro.apellido.errors %}
-                        <span style="color: red;">{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                        <div class="mb-3">
+                            {{ form_registro.apellido.label }}
+                            {{ form_registro.apellido(class='form-control') }}
+                            {% for error in form_registro.apellido.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
 
-                    <div class="mb-3">
-                        {{ form_registro.correo.label }}
-                        {{ form_registro.correo(class="form-control") }}
-                        {% for error in form_registro.correo.errors %}
-                        <span style="color: red;">{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                        <div class="mb-3">
+                            {{ form_registro.correo.label }}
+                            {{ form_registro.correo(class="form-control") }}
+                            {% for error in form_registro.correo.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
 
-                    <div class="mb-3">
-                        {{ form_registro.clave.label }}
-                        {{ form_registro.clave(class="form-control") }}
-                        {% for error in form_registro.clave.errors %}
-                        <span style="color: red;">{{ error }}</span>
-                        {% endfor %}
-                    </div>
+                        <div class="mb-3">
+                            {{ form_registro.clave.label }}
+                            {{ form_registro.clave(class="form-control") }}
+                            {% for error in form_registro.clave.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
 
-                    <div class="mb-3">
-                        {{ form_registro.confirmar_clave.label }}
-                        {{ form_registro.confirmar_clave(class="form-control") }}
-                    </div>
-                    <p>¿Ya tienes una cuenta? <a href="#" id="btn_login">ingresar</a></p>
-                    {{ form_registro.submit(class="btn btn-primary") }}
-                    
-                </form>
-            </div>
+                        <div class="mb-3">
+                            {{ form_registro.confirmar_clave.label }}
+                            {{ form_registro.confirmar_clave(class="form-control") }}
+                        </div>
+                        <p>¿Ya tienes una cuenta? <a href="#login" id="btn_login">ingresar</a></p>
+                        {{ form_registro.submit(class="btn btn-primary mb-3") }}
+
+                    </form>
+                </div>
+            </section>
 
             <!-- Acceso -->
-            <div id="ingresar" class="col-12">
-                <center><h1>Hola, bienvenido</h1></center>
-                <h4>Acceso de usuarios</h4>
-                <form action="/login" method="POST">
-                    {{ form_acceso.hidden_tag() }}
 
-                    <div class="mb-3">
-                        {{ form_acceso.correo.label }}
-                        {{ form_acceso.correo(class="form-control") }}
-                    </div>
+            <section id="login">
+                <div id="ingresar" class="col-12">
+                    <center><h1>Hola, bienvenido</h1></center>
+                    <h4>Acceso de usuarios</h4>
+                    <form action="/login" method="POST">
+                        {{ form_acceso.hidden_tag() }}
 
-                    <div class="mb-3">
-                        {{ form_acceso.clave.label }}
-                        {{ form_acceso.clave(class="form-control") }}
-                    </div>
-                    <p>¿Aún no tienes cuenta? <a href="#" id="btn_reg">registrarse</a></p>
-                    {{ form_acceso.submit(class="btn btn-primary") }}
-                </form>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul>
-                            {% for message in messages %}
-                            <li style="color: red;">{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
-            </div>
+                        <div class="mb-3">
+                            {{ form_acceso.correo.label }}
+                            {{ form_acceso.correo(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_acceso.clave.label }}
+                            {{ form_acceso.clave(class="form-control") }}
+                        </div>
+                        <p>¿Aún no tienes cuenta? <a href="#register" id="btn_reg">registrarse</a></p>
+                        {{ form_acceso.submit(class="btn btn-primary") }}
+                    </form>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <style>#register{display: none;}#login{display: block;}</style>
+                            <ul>
+                                {% for message in messages %}
+                                <li style="color: rgb(0, 255, 26);">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <style>#register{display: block;}#login{display: none;}</style>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </section>
         </div>
     </div>
 </div>
