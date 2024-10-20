@@ -13,14 +13,15 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 op_form =[
-        ('default','Sin área'),
-        ('Editor de videos', 'Editor de videos'),
-        ('Artista Digital', 'Artista Digital'),
+        ('default',           'Sin área'),
+        ('Editor de videos',  'Editor de videos'),
+        ('Artista Digital',   'Artista Digital'),
         ('Productor músical', 'Productor músical'),
-        ('Desarrollador Web', 'Desarrollador Web')
+        ('Programador',       'Programador')
         ]
 
 #!  erro en cambiar categoria, muestra la edad
+#!  cuando se borra un proveedor su misma id no deberia perderse
 
 db = SQLAlchemy(app)
 
@@ -30,7 +31,7 @@ login_manager.login_view = "auth"
 
 # importación de módulos propios
 from forms import FormularioRegistro, FormularioAcceso, FormularioValidar
-from models import Usuario, Proveedor
+from models import Usuario, Proveedor, Publicacion
 from controllers import ControladorUsuarios
 
 # Inicialización de versiones de la bases de datos
@@ -60,6 +61,9 @@ def auth(form_registro=None, form_acceso=None):
 
     if form_registro == None:
         form_registro = FormularioRegistro()
+        
+    elif form_registro:
+        return redirect("/inicio")
 
     if form_acceso == None:
         form_acceso = FormularioAcceso()
@@ -90,11 +94,11 @@ def register():
             flash(error)
             return(redirect("/"))
         else:
-            flash(f'Registro solicitado para el usuario { nombre }')
+            print(f'Registro solicitado para el usuario { nombre }')
             # Utilización de un controlador entre Vista y Modelo.
             ControladorUsuarios().crear_usuario(nombre, apellido, correo, clave)
             # Generamos una instancia de datos.
-            return redirect("/")
+            return redirect("/inicio")
     else:
         print("form invalido")
         flash("Form invalido")
@@ -129,25 +133,32 @@ def login():
 #################### Página Principal ####################
 @app.route('/inicio')
 def home():
-    return render_template('index.html')
+    user = current_user
+    return render_template('index.html', user=user)
 
 #################### Selección de categorias ####################
 # Categorias hasta ahora: videos, diseño grafico, audio, sitios web
 @app.route('/seccion/<string:cat>')
 def manejo_categorias(cat):
     proveedores = Proveedor.obtener_por_categoria(cat)
-    return render_template('unique_cat.html', proveedores=proveedores)
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-#************************************************** RUTAS DE PERFIL. **************************************************
+    publicaciones = Publicacion.obtener_por_categoria(cat)
+    return render_template('unique_cat.html', proveedores=proveedores, publicaciones=publicaciones, cat=cat)
 
 ####################  VER PERFIL SELECCIONADO.  ####################
 @app.route('/perfil/view/<int:id>')
 def view_perfil(id):
     proveedor = Proveedor.buscar_por_id(id)
     return render_template ('perfil.html', proveedor = proveedor)
+
+@app.route('/seccion/<string:cat>/crear-publicacion')
+def crear_tarea(cat):
+    return render_template('subir_post.html', cat=cat)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+#************************************************** RUTAS DE PERFIL. **************************************************
 
 ####################  VER PERFIL PROPIO.  ####################
 @app.route("/perfil/me")
@@ -162,7 +173,7 @@ def perfil():
 def editar_perfil():
     if request.method == 'GET':
         proveedor = current_user.proveedor
-        return render_template('editar_usuario.html', usuario=current_user, proveedor=proveedor)
+        return render_template('editar_usuario.html', usuario=current_user, proveedor=proveedor,)
 
     if request.method == 'POST':
         error = False
@@ -173,8 +184,9 @@ def editar_perfil():
         bio      = request.form.get('bio')
         file = request.files['photo']
         
-        if file.filename == '':
+        if not file:                            #! ############ sacar de pc ico ##########
             return flash('No selected file')
+        
         if file:
             filename  = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -210,7 +222,7 @@ def crear_miembro():
     return render_template('validar_proveedor.html', form_validar=form_validar)
 
 
-#************************************************** ACCIONES USUARIO **************************************************
+#************************************************** ACCIONES**************************************************
 ####################  CREAR LA TABLA PROVEEDORES.  ####################
 @app.route('/validar', methods=["POST", "GET"])
 @login_required
@@ -224,6 +236,19 @@ def validar_perfil():
     if form_validar.validate_on_submit():
         ControladorUsuarios.crear_miembro(id, edad, telefono, categoria)
         return redirect('/perfil/me')
+
+@app.route('/crear_post/<string:cat>', methods=['POST'])
+@login_required
+def crear_publicacion(cat):
+    usuario_id   = current_user.id
+    proveedor_id = current_user.proveedor.id
+    texto        = request.form['texto']
+    tags         = request.form['tags']
+    categoria    = cat
+    
+    ControladorUsuarios.crear_publicacion(usuario_id, proveedor_id, texto,tags, categoria)
+    return redirect(f'/seccion/{categoria}')
+
 
 ####################  CERRAR SESIÓN.  ####################
 # (No se borra de la db)

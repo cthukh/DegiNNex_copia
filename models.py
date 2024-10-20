@@ -17,6 +17,7 @@ class Usuario(db.Model, UserMixin):
     created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
     
     proveedor      = db.relationship('Proveedor', back_populates='usuario', uselist=False)
+    publicacion    = db.relationship('Publicacion', back_populates='usuario', uselist=False)
 
     def establecer_clave(self, clave):
         self.clave = generate_password_hash(clave)
@@ -53,7 +54,8 @@ class Proveedor(db.Model):
     categoria      = db.Column(db.String(30),  nullable=False)
 
     usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
-    usuario        = db.relationship('Usuario', back_populates = 'proveedor')
+    usuario        = db.relationship('Usuario', back_populates='proveedor', uselist=False)
+    publicacion    = db.relationship('Publicacion', back_populates='proveedor', uselist=False)
     
     @staticmethod
     def obtener_por_categoria(cat):
@@ -62,8 +64,31 @@ class Proveedor(db.Model):
         for producto in productos:
             todos_los_productos.append(producto)
         print("Items de consulta:",todos_los_productos)
-        return(todos_los_productos) # Una lista de usuarios en la categoria
+        return(todos_los_productos)
 
     @staticmethod
     def buscar_por_id(id):
         return Proveedor.query.get(id)
+    
+######################################## tabla Publicaciones ########################################
+class Publicacion(db.Model):
+    __tablename__  = "publicaciones"
+    id             = db.Column(db.Integer, primary_key=True)
+    texto          = db.Column(db.Text, nullable=False)
+    tags           = db.Column(db.String(200), nullable=True)
+    categoria      = db.Column(db.String(30),  nullable=False)
+    created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
+    usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
+    proveedor_id   = db.Column(db.Integer, db.ForeignKey('proveedores.usuario_id', ondelete="CASCADE"))
+    
+    proveedor      = db.relationship('Proveedor', back_populates='publicacion')
+    usuario        = db.relationship('Usuario', back_populates='publicacion')
+    
+    @staticmethod
+    def obtener_por_categoria(cat):
+        publis = Publicacion.query.filter_by(categoria=cat)
+        all_posts = []
+        for post in publis:
+            all_posts.append(post)
+        print("Items de consulta:",all_posts)
+        return(all_posts)

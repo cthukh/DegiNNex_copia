@@ -13,14 +13,14 @@ Editar Perfil
     <h2>Editar Usuario</h2>
 
     <form action="/perfil/me/editar" class="form_edit" method="POST" enctype="multipart/form-data" >
+
         {% if usuario.foto_perfil %}
         <style>#subir_foto{display: none;}</style>
-        <div id="mostar_foto">
+        <div id="mostrar_foto">
             <img src="{{ url_for('static', filename=usuario.foto_perfil) }}" alt="{{ usuario.foto_perfil }}" class="profile-picture">
             <a href="#" id="cambiar_div" class="btn btn-secondary">Cambiar foto de perfil</a>
         </div>
         {% endif %}
-
 
         <div id="subir_foto">
         <label for="pfp">Sube una foto</label>
@@ -37,7 +37,7 @@ Editar Perfil
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
         <label for="bio">Biografia</label>
-        <input type="text" class="nuevo" name="bio" value="{{ usuario.biografia }}">
+        <textarea type="text" class="nuevo" name="bio" value="{{ usuario.biografia }}"></textarea>
 
         {% if usuario.is_a_proveer == True: %}
             <label for="edad">Edad:</label>
@@ -45,21 +45,19 @@ Editar Perfil
 
             <label for="telefono">Telefono:</label>
             <input type="text" class="nuevo" name="telefono" value="{{ proveedor.telefono }}" required>
-
-            <label for="categoria">Categoria: </label>
-            <select name="categoria" class="nuevo" id="categoria">
+    
+             <label for="categoria">Categoria: </label>
+            <select name="categoria" class="nuevo mb-3" >
                 <option value="{{ proveedor.categoria }}">{{ proveedor.categoria }}</option>
                 <option value="Editor de videos">Editor de videos</option>
                 <option value="Artista Digital">Artista Digital</option>
                 <option value="Productor músical">Productor músical</option>
-                <option value="Desarrollador Web">Desarrollador Web</option>
-
-
-            </select>
+                <option value="Programador">Programador</option>
+            </select> 
         {% endif %}
 
-        <button type="submit" id="subir" class="btn btn-primary">Guardar Cambios</button>
-        <button type="button" class="btn btn-danger" onclick="window.location.href='/perfil/me'">Cancelar</button>
+        <button type="submit" id="subir" class="btn btn-primary mb-2">Guardar Cambios</button>
+        <button type="button" class="btn btn-danger mb-3" onclick="window.location.href='/perfil/me'">Cancelar</button>
     </form>
 </div>
 <script src="{{ url_for('static', filename='js/editar_perfil.js') }}"></script>

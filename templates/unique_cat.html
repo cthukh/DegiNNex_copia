@@ -1,7 +1,7 @@
 {% extends 'base_template.html' %}
 
 {% block title %}
-Perfiles en sección video
+Sección {{ cat }}
 {% endblock %}
 
 {% block link %}
@@ -10,12 +10,41 @@ Perfiles en sección video
 
 {% block content %}
 <div class="content">
-    <!-- **********  publicaciones  ********** -->
-    <div class="main-post">
+    <div class="d-flex justify-content-center">
+        <ul class="nav nav-pills nav-fill gap-2 p-1 small color rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-dark); --bs-nav-pills-link-active-bg: var(--bs-white);">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-5" id="personas-tab1" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Personas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" id="publicaciones-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Publicaciones</button>
+            </li>
+            </li>
+        </ul>
+    </div>
 
+    <!-- **********  publicaciones  ********** -->
+
+    <div class="main-post" id="div-post" style="display:none;">
+        <a href="{{cat}}/crear-publicacion" class="btn btn-warning btn-post">subir petición</a>
+        <p>{{ cat }}</p>
+        {% for post in publicaciones %}
+        <div class="main-post card col-4" >
+            <div class="card-body">
+                <h5 class="card-title">{{ post.usuario.nombre }} {{ post.usuario.apellido }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">fecha: {{ post.created_at }}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><strong>tags: {{ post.tags }}</strong></h6>
+                <p class="card-text">{{ post.texto }}</p>
+                <a href="#" class="card-link link">responder</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% if not publicaciones %}
+        <marquee behavior="alternate" direction=""><img src="{{url_for('static', filename='img/rolling ame.gif')}}" alt="ame_rolling" width="100px">aún nada...</marquee>
+        {% endif %}
     </div>
     <!-- **********  personas  ********** -->
-    <div class="main-personas">
+    <div class="main-personas" id="div-personas">
     {% for proveedor in proveedores %}
         <section id="perfiles">
             <a href="/perfil/view/{{proveedor.id}}">
@@ -39,4 +68,8 @@ Perfiles en sección video
     {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/unicat.js') }}"></script>
 {% endblock %}
