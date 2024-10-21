@@ -21,15 +21,15 @@
                 {% if usuario.foto_perfil: %}
                     <img src="{{ url_for('static', filename=usuario.foto_perfil) }}"  alt="{{usuario.foto_perfil}}" class="profile-picture">
                 {% else: %}
-                    <img src="{{ url_for('static', filename='img/default_profile-coco.png') }}" alt="sin foto de perfil" class="profile-picture">
+                    <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin foto de perfil" class="profile-picture">
                 {% endif %}
                 <div class="user-details">
                     <h1>{{ usuario.nombre }} {{ usuario.apellido }}</h1>
-                    {% if usuario.miembro == True %}
-                        <p style="color:green;">Cuenta Profesional Activa</p>
-                        <p style="color: cornflowerblue;">{{ usuario.proveedor.categoria }}</p>
-                    {% elif usuario.miembro == False %}
-                        <p style="color:gray;" >Cliente</p>
+                    {% if usuario.is_a_proveer == True %}
+                        <p style="color:green; margin-top:13px;">Cuenta Profesional Activa</p>
+                        <p style="color: rgb(141, 0, 0);">{{ usuario.proveedor.categoria }}</p>
+                    {% elif usuario.is_a_proveer == False %}
+                        <p style="color:gray;">Cliente</p>
                     {% endif %}
                 </div>
             </div>
@@ -55,7 +55,6 @@
                 </div>
 
                 <div id="contacto" class="tab-content">
-                    <p style="color: red;">Estos datos son públicos</p>
                     {% if usuario.proveedor %}
                         <strong><label for="telefono">Número de telefono:</label></strong>
                         <p>{{ usuario.proveedor.telefono }}</p>
@@ -67,9 +66,9 @@
                 </div>
                 <div id="opt_button" class="tab-content utm">
                     <a href="/perfil/me/editar"><button class="btn btn-primary">Editar Perfil</button></a>
-                    {% if usuario.miembro == False %}
+                    {% if usuario.is_a_proveer == False %}
                         <a href="/perfil/me/verificar"><button class="btn btn-success">Validar Perfil</button></a>
-                    {% elif usuario.miembro == True %}
+                    {% elif usuario.is_a_proveer == True %}
                         <a href="/prof/eliminar"><button class="btn btn-warning">Eliminar profesion</button></a>
                     {% endif %}
                     <a href="/cuenta/logout"><button class="btn btn-secondary">Cerrar sesión</button></a>

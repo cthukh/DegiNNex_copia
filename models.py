@@ -1,10 +1,9 @@
 from app import db
 from datetime import datetime
-from dataclasses import dataclass
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-@dataclass
+########################################  tabla usuarios ########################################  
 class Usuario(db.Model, UserMixin):
     __tablename__  = "usuarios"
     id             = db.Column(db.Integer,     primary_key=True)
@@ -14,18 +13,10 @@ class Usuario(db.Model, UserMixin):
     clave          = db.Column(db.String(255), nullable=False)
     biografia      = db.Column(db.String(255), nullable=True)
     foto_perfil    = db.Column(db.String(200), nullable=True)
-    miembro        = db.Column(db.Boolean(),   nullable=False, default=False)
+    is_a_proveer   = db.Column(db.Boolean(),   nullable=False, default=False)
     created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
     
     proveedor      = db.relationship('Proveedor', back_populates='usuario', uselist=False)
-    
-    def serialize(self):
-        return {"id": self.id,
-                "nombre": self.nombre,
-                "apellido": self.apellido,
-                "correo": self.correo,
-                "clave": self.nombre,
-                }
 
     def establecer_clave(self, clave):
         self.clave = generate_password_hash(clave)
@@ -53,6 +44,7 @@ class Usuario(db.Model, UserMixin):
         print(f"Consultando por el usuario con id {id} en db")
         return Usuario.query.get(id)
 
+######################################## tabla Proveedores ########################################
 class Proveedor(db.Model):
     __tablename__  = "proveedores"
     id             = db.Column(db.Integer,     primary_key=True)
@@ -63,8 +55,6 @@ class Proveedor(db.Model):
     usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
     usuario        = db.relationship('Usuario', back_populates = 'proveedor')
     
-    
-
     @staticmethod
     def obtener_por_categoria(cat):
         productos = Proveedor.query.filter_by(categoria=cat)

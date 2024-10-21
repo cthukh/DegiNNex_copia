@@ -37,13 +37,9 @@ Editar Perfil
         <input type="email" class="nuevo" name="correo" value="{{ usuario.correo }}" required>
 
         <label for="bio">Biografia</label>
-        {% if not usuario.biografia %}
-        <input type="text" class="nuevo" name="bio" placeholder="cuentanos sobre ti">
-        {% elif usuario.biografia: %}
         <input type="text" class="nuevo" name="bio" value="{{ usuario.biografia }}">
-        {% endif %}
 
-        {% if usuario.miembro == True: %}
+        {% if usuario.is_a_proveer == True: %}
             <label for="edad">Edad:</label>
             <input type="text" class="nuevo" name="edad" value="{{ proveedor.edad }}" required>
 

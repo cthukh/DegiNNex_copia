@@ -18,10 +18,14 @@
     <div class="container">
         <div class="profile-sidebar">
             <div class="profile-header">
-                <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}"  alt="foto_de_perfil" class="profile-picture">
+                {% if not proveedor.usuario.foto_perfil %}
+                <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin_foto_de_perfil" class="profile-picture">
+                {% else %}
+                <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}" alt="Foto_de_perfil" class="profile-picture">
+                {% endif %}
                 <div class="user-details">
                     <h1>{{proveedor.usuario.nombre}} {{ proveedor.usuario.apellido }}</h1>
-                    <label style="color: rgb(196, 84, 162);" for="categoria">{{ proveedor.categoria }}</label>
+                    <label style="color: rgb(149, 5, 39);" for="categoria">{{ proveedor.categoria }}</label>
                 </div>
             </div>
         </div>
@@ -40,16 +44,16 @@
                     {% if proveedor.usuario.biografia %}
                         {{ proveedor.usuario.biografia }}
                     {% elif not proveedor.usuario.biografia %}
-                        <button style="color: rgb(69, 98, 196);" class="nav-item" data-tab="opt_button">Agregar descripción</button>
+                        <p>No se a proporcionado información.</p>
                     {% endif %}
                 </div>
                 <div id="experience" class="tab-content">
-                    <p style="color:brown;">no se han proporcionado datos</p>
+                    <p>No se a proporcionado información.</p>
                 </div>
                 <div id="contacto" class="tab-content">
                     {% if proveedor.usuario.proveedor %}
-                        <strong><label for="telefono">Número de telefono:</label></strong>
-                        <p>{{ proveedor.telefono }}</p>
+                        <!-- <strong><label for="telefono">Número de telefono:</label></strong>
+                        <p>{{ proveedor.telefono }}</p> -->
                     {% endif %}
                     <strong><label for="correo">Correo Electrónico</label></strong>
                     <p>{{ proveedor.usuario.correo }}</p>

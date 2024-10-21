@@ -1,0 +1,11 @@
+.content {
+    margin: 0 auto;
+    padding: 0;
+    background-color: rgb(250, 242, 244);
+}
+
+.texto-bienvenida {
+    font-size: 30px;
+    text-align: start;
+    padding: 3rem;
+}
