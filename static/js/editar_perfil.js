@@ -1,9 +1,8 @@
-function showUpload() {
-    document.getElementById('profile-picture-container').style.display = 'none';
-    document.getElementById('upload-picture-container').style.display = 'block';
-}
+const mostrar    = document.getElementById('mostrar_foto');
+const subir      = document.getElementById('subir_foto');
+const btnCambiar = document.getElementById('cambiar_div');
 
-function showProfile() {
-    document.getElementById('profile-picture-container').style.display = 'block';
-    document.getElementById('upload-picture-container').style.display = 'none';
-}
+btnCambiar.addEventListener('click', function() {
+    mostrar.style.display = 'none';
+    subir.style.display   = 'block';
+});

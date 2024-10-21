@@ -1,4 +1,4 @@
-from models import Usuario, db, Proveedor
+from models import Usuario, db, Proveedor, Publicacion
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
@@ -30,6 +30,27 @@ class ControladorUsuarios:
         db.session.add(proveedor)
         db.session.commit()
         return proveedor
+    
+    @staticmethod
+    def crear_publicacion(idu, idp, texto, tags, cat):
+        publicacion            = Publicacion()
+        publicacion.texto      = texto
+        publicacion.tags       = tags
+        publicacion.usuario_id = idu
+        publicacion.categoria  = cat
+        
+        print(cat)
+        print(idp)
+        print ("def crear publicacion")
+        
+        if not idp:
+            return "error en crear pst"
+        elif idp:
+            publicacion.proveedor_id = idp
+        
+        db.session.add(publicacion)
+        db.session.commit()
+        return publicacion
 
 ########################################  EDITAR  ########################################
     @staticmethod

@@ -1,0 +1,29 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Crear publicación
+{% endblock %}
+
+{% block link %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container col-6 mt-5 mb-5" style="height: 80vh;">
+        <form action="/crear_post/{{cat}}" method="POST">
+            <h2 class="mb-3">Empieza tu publicación</h2>
+            <div class="mb-3">
+                <label class="form-label" for="texto">Cuéntanos tu idea</label>
+                <textarea class="form-control" type="text" name="texto" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="tags">Agrega tags para dar contexto</label>
+                <input class="form-control" type="text" name="tags" placeholder="ej: crear logo para mi empresa">
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary">Publicar</button>
+            </center>
+        </form>
+    </div>
+{% endblock %}
