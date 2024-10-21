@@ -78,7 +78,7 @@ def register():
     # Comprobar si el correo ya está registrado; Si no, se crea el usuario.
     if form.validate_on_submit():
         print("form valido")
-        flash("Cuenta creada. Ahora ingresa.")
+        flash("Cuenta creada. Ahora ingrese.")
         nombre   = form.nombre.data
         apellido = form.apellido.data
         correo   = form.correo.data
@@ -109,7 +109,7 @@ def login():
     # Recibimos los datos del login en frontend.
     form_acceso = FormularioAcceso()
     if form_acceso.validate_on_submit():
-        flash(f"Acceso solicitado para el usuario { form_acceso.correo.data }")
+        print(f"Acceso solicitado para el usuario { form_acceso.correo.data }")
         # Consultamos por el correo en la db
         usuario = Usuario().obtener_por_correo(form_acceso.correo.data)
         # Si el usuario no es nada (entonces existe en la db)
@@ -182,16 +182,6 @@ def editar_perfil():
         bio      = request.form.get('bio')
         file = request.files['photo']
         
-        if not file:                            #! ############ sacar de pc ico ##########
-            return flash('No selected file')
-        
-        if file:
-            filename  = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            print(file_path)
-            ControladorUsuarios.op_fotos(idq,file_path)
-
         print("esta editando el usuario")
         resultado = ControladorUsuarios.editar_usuario(idq,nombre,apellido,correo,bio)
 
@@ -207,8 +197,27 @@ def editar_perfil():
             flash (resultado['mensaje'])
             print (resultado['mensaje'])
         else:
-            flash("Perfil actualizado con éxito")
             print("Perfil actualizado con éxito")
+
+        if not file:
+            print('no hay file')
+            file == current_user.foto_perfil
+            if current_user.foto_perfil is None:
+                file == "static/img/default_coco-chan.png"
+                print(file)
+            return redirect("/perfil/me")
+
+        print(file.filename)
+
+        if file:
+            print('llega el archivo')
+            filename  = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            print(file_path)
+            print('parte: 3 error aqui')
+            if ControladorUsuarios.op_fotos(idq,file_path):
+                return redirect("/perfil/me")
 
         return redirect('/perfil/me')  # Redirige a la ruta de acción, si se usa POST
 
@@ -239,10 +248,17 @@ def validar_perfil():
 @login_required
 def crear_publicacion(cat):
     usuario_id   = current_user.id
-    proveedor_id = current_user.proveedor.id
+
     texto        = request.form['texto']
     tags         = request.form['tags']
     categoria    = cat
+    
+    if current_user.proveedor:
+        proveedor_id = current_user.proveedor.id
+        print(proveedor_id)
+    else:
+        proveedor_id = None
+        print(f"{proveedor_id} no hay id de proveedor")
     
     ControladorUsuarios.crear_publicacion(usuario_id, proveedor_id, texto,tags, categoria)
     return redirect(f'/seccion/{categoria}')

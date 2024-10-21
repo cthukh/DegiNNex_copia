@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-########################################  tabla usuarios ########################################  
+########################################  tabla usuarios ########################################
 class Usuario(db.Model, UserMixin):
     __tablename__  = "usuarios"
     id             = db.Column(db.Integer,     primary_key=True)
@@ -77,7 +77,7 @@ class Publicacion(db.Model):
     texto          = db.Column(db.Text, nullable=False)
     tags           = db.Column(db.String(200), nullable=True)
     categoria      = db.Column(db.String(30),  nullable=False)
-    created_at     = db.Column(db.DateTime(),  default=datetime.now().date())
+    created_at     = db.Column(db.Date(),  default=datetime.now().date())
     usuario_id     = db.Column(db.Integer, db.ForeignKey('usuarios.id', ondelete='CASCADE'))
     proveedor_id   = db.Column(db.Integer, db.ForeignKey('proveedores.usuario_id', ondelete="CASCADE"))
     

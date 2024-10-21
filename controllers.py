@@ -44,7 +44,7 @@ class ControladorUsuarios:
         print ("def crear publicacion")
         
         if not idp:
-            return "error en crear pst"
+            print ("no es miembro")
         elif idp:
             publicacion.proveedor_id = idp
         

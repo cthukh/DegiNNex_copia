@@ -23,49 +23,55 @@ Sección {{ cat }}
     </div>
 
     <!-- **********  publicaciones  ********** -->
-
-    <div class="main-post" id="div-post" style="display:none;">
+    <div id="div-post" style="display:none;">
+        <h2 class="subtitle">Tareas:</h2>
         <a href="{{cat}}/crear-publicacion" class="btn btn-warning btn-post">subir petición</a>
-        <p>{{ cat }}</p>
-        {% for post in publicaciones %}
-        <div class="main-post card col-4" >
-            <div class="card-body">
-                <h5 class="card-title">{{ post.usuario.nombre }} {{ post.usuario.apellido }}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">fecha: {{ post.created_at }}</h6>
-                <h6 class="card-subtitle mb-2 text-body-secondary"><strong>tags: {{ post.tags }}</strong></h6>
-                <p class="card-text">{{ post.texto }}</p>
-                <a href="#" class="card-link link">responder</a>
-                <a href="#" class="card-link">Another link</a>
+        <div class="main-posteo">
+
+            {% for post in publicaciones %}
+            <div class="main-post card col-6" >
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.usuario.nombre }} {{ post.usuario.apellido }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">fecha: {{ post.created_at }}</h6>
+                    <p class="card-subtitle mb-2 text-body-secondary"><strong>tags: {{ post.tags }}</strong></p>
+                    <p class="card-text">{{ post.texto }}</p>
+                    <a href="#" class="card-link link">comentar</a>
+                    <a href="/perfil/view/{{ post.usuario.id }}" class="card-link">ver perfil</a>
+                </div>
             </div>
+            {% endfor %}
+            {% if not publicaciones %}
+            <marquee behavior="alternate" direction=""><img src="{{url_for('static', filename='img/rolling ame.gif')}}" alt="ame_rolling" width="100px">aún nada...</marquee>
+            {% endif %}
         </div>
-        {% endfor %}
-        {% if not publicaciones %}
-        <marquee behavior="alternate" direction=""><img src="{{url_for('static', filename='img/rolling ame.gif')}}" alt="ame_rolling" width="100px">aún nada...</marquee>
-        {% endif %}
     </div>
     <!-- **********  personas  ********** -->
-    <div class="main-personas" id="div-personas">
-    {% for proveedor in proveedores %}
-        <section id="perfiles">
-            <a href="/perfil/view/{{proveedor.id}}">
-                <div class="profile" onclick="showProfile('perfil1')">
-                    {% if not proveedor.usuario.foto_perfil %}
-                    <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin_foto_de_perfil" width="160px" class="profile-picture">
-                    {% else %}
-                    <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}" alt="Foto_de_perfil" width="160px" class="profile-picture">
-                    {% endif %}
-                    <div class="summary">
-                        <h3>{{ proveedor.usuario.nombre }} {{ proveedor.usuario.apellido }}</h3>
-                        <!-- <p>{{ proveedor.usuario.correo }}</p> -->
-                        <p>{{ proveedor.categoria }}</p>
+
+    <div id="div-personas">
+        <h2 class="subtitle">Personas:</h2>
+        <div class="main-personas">
+        {% for proveedor in proveedores %}
+            <section id="perfiles">
+                <a href="/perfil/view/{{proveedor.id}}">
+                    <div class="profile" onclick="showProfile('perfil1')">
+                        {% if not proveedor.usuario.foto_perfil %}
+                        <img src="{{ url_for('static', filename='img/default_coco-chan.png') }}" alt="sin_foto_de_perfil" width="100px" class="profile-picture">
+                        {% else %}
+                        <img src="{{ url_for('static', filename=proveedor.usuario.foto_perfil) }}" alt="Foto_de_perfil" width="100px" class="profile-picture">
+                        {% endif %}
+                        <div class="summary">
+                            <h3>{{ proveedor.usuario.nombre }} {{ proveedor.usuario.apellido }}</h3>
+                            <!-- <p>{{ proveedor.usuario.correo }}</p> -->
+                            <p>{{ proveedor.categoria }}</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </section>
-    {% endfor %}
-    {% if not proveedores %}
-        <marquee behavior="alternate" direction=""><img src="{{url_for('static', filename='img/rolling ame.gif')}}" alt="ame_rolling" width="100px">aún nada...</marquee>
-    {% endif %}
+                </a>
+            </section>
+        {% endfor %}
+        {% if not proveedores %}
+            <marquee behavior="alternate" direction="left"><img src="{{url_for('static', filename='img/rolling ame.gif')}}" alt="ame_rolling" width="100px">aún nada...</marquee>
+        {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

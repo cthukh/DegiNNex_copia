@@ -5,11 +5,11 @@ const navBtnpe = document.getElementById('personas-tab1');
 
 navBtnpe.addEventListener('click', function() {
     post.style.display = 'none';
-    persona.style.display = 'flex';
+    persona.style.display = 'block';
 });
 
 navBtnPo.addEventListener('click', function() {
-    post.style.display = 'flex';
+    post.style.display = 'block';
     persona.style.display = 'none';
 });
 

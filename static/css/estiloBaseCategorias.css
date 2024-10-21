@@ -1,6 +1,8 @@
-body{ 
-    margin: 0;
+body{
+    margin: 0 auto;
     padding: 0;
+    height: 100vh;
+    min-height: 100vh;
 }
 
 
@@ -8,10 +10,16 @@ body{
     margin: 0;
     padding: 0;
     background-color: rgb(250, 242, 244);
-    height: 80vh;
-    a {
+    height: 100%;
+    min-height: max-content;
+    #div-personas a {
         color: rgb(0, 0, 0);
     }
+}
+
+.subtitle {
+    margin-top: 3rem;
+    margin-left: 5rem;
 }
 
 /** nav **/
@@ -29,31 +37,47 @@ body{
 }
 
 /** publicaciones **/
+/* #div_post {
+    margin-top: -20px;
+} */
 
 .btn-post {
     text-align: center;
     border-radius: 30px;
     width: 200px;
     height: 50px;
-    margin-bottom: 20px;
-    position: absolute;
-    top: 80%;
+    margin-bottom: 25px;
+    position: sticky;
+    top: 90%;
     left: 85%;
+}
+
+.main-posteo {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 }
 
 .main-post {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 30px;
+    padding: 20px;
 }
 
 .card {
     display: flex;
     justify-items: stretch;
-    gap: 20px;
+    gap: 16px;
     justify-content: center;
-    margin: 3rem;
+    margin: 2rem;
+}
+
+.card-text {
+    border: 1px solid rgba(128, 128, 128, 0.562);
 }
 
 /** personas **/
@@ -85,6 +109,7 @@ body{
     padding: 1rem;
     transition: transform 0.3s;
     cursor: pointer;
+    overflow: hidden
 }
 
 .profile:hover {
@@ -94,7 +119,11 @@ body{
 }
 
 .profile img {
-    border-radius: 50%;
+    border-radius: 100%;
     border: 2px solid rgb(143, 1, 34);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
 }
